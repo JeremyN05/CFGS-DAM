@@ -48,13 +48,32 @@ if (opcion == 1){
 
 		printf("El área del cuadrado con lado %lf es %lf\n", lado,  Acuadrado);
 	
-	}else 
+	}else{
 		printf("Error en la función calcular_area_figura\n");
 }
 
-void comparar_3_números(){
+double calcular_promedio_tres_num(double num1, double num2, double num3){
 
-double num1, num2 ,num3;
+	double promedio_3 = (num1 + num2 + num3)/3;
+	{
+}
+
+
+double calcular_promedio_cuatro_num(double num1, double num2, double num3,double num4){
+	
+	double promedio_4 = (num1 + num2 + num3 + num4)/4;
+
+}
+
+void calcular_promedio(){
+
+	double números;
+	double num1, num2, num3, num4;
+
+	printf("¿Cuántos números deseas promediar (3 o 4)?\n");
+	scanf("%lf", &números);
+
+if (números == 3){
 
 	printf("Introduce el número 1:\n");
 	scanf("%lf", &num1);
@@ -62,29 +81,21 @@ double num1, num2 ,num3;
 	scanf("%lf", &num2);
 	printf("Introduce el número 3:\n");
 	scanf("%lf", &num3);
-
-}
-
-int números;
-
-double num1, num2, num3, num4;
-
-printf("¿Cuántos números deseas promediar (3 o 4)?\n");
-	if(números == 3){
 	
+	printf("El promedio de %lf, %lf y %lf es:\n", num1, num2, num3);
+
+}else if (números == 4){
 	
-	}
-
-}
-
-void promedio(){
-
-double num1, num2, num3
-printf("¿Cuántos números deseas promediar (3 o 4)?\n");
-
-	printf("Introduce el número 1:");
-	scanf("%lf", &num1)
-
+	printf("Introduce el número 1:\n");
+	scanf("%lf", &num1);
+	printf("Introduce 3l número 2:\n");
+	scanf("%lf", &num2);
+	printf("Introduce el número 3:\n");
+	scanf("%lf", &num3);
+	printf("Introduce el número 4:\n");
+	scanf("%lf", &num4);
+	
+	printf("El promedio de %lf, %lf, %lf y %lf es:\n", num1, num2, num3, num4);
 
 }
 
@@ -112,8 +123,16 @@ switch(funciones){
 		double radio2, area2;
 		int opcion2;
 		calcular_area_figura();	
+	
+	break;
 
-		
+	case 3:
+	
+		double num1, num2, num3, num4;
+		double números;
+		calcular_promedio(num1, num2, num3, num4);	
+
+	break;
 }
 
 }
