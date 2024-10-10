@@ -55,7 +55,7 @@ if (opcion == 1){
 double calcular_promedio_tres_num(double num1, double num2, double num3){
 
 	double promedio_3 = (num1 + num2 + num3)/3;
-	{
+	
 }
 
 
