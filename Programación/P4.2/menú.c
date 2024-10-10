@@ -65,10 +65,9 @@ double calcular_promedio_cuatro_num(double num1, double num2, double num3,double
 
 }
 
-void calcular_promedio(){
+void calcular_promedio(double num1, double num2, double num3, double num4){
 
 	double números;
-	double num1, num2, num3, num4;
 
 	printf("¿Cuántos números deseas promediar (3 o 4)?\n");
 	scanf("%lf", &números);
@@ -128,9 +127,7 @@ switch(funciones){
 
 	case 3:
 	
-		double num1, num2, num3, num4;
-		double números;
-		calcular_promedio(num1, num2, num3, num4);	
+		calcular_promedio();	
 
 	break;
 }
