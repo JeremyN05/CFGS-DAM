@@ -7,15 +7,19 @@ int main(){
 	int posicion;
 	char caracter;
 
-	printf("Introduzca una palabra:\n");
+	printf("Introduzca una palabra: ");
 	scanf("%s", str1);
 
-	printf("¿Qué posición desea modificar?\n");
-	scanf("%d", &posicion);
+	printf("¿Qué posición desea modificar? ");
+	scanf(" %d", &posicion);
 
-	printf("¿Qué caracter desea poner?\n");
-	scanf("%c\n", &caracter);
+	printf("¿Qué caracter desea poner? ");
+	scanf(" %c", &caracter);
 
-	return 0;
+	str1[posicion - 1]=caracter;
+
+	printf("La nueva palabra es: %s\n", str1);
+
+	return EXIT_SUCCESS;
 
 }
