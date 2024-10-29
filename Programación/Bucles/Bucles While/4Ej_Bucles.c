@@ -3,7 +3,6 @@
 
 int main(){
 int n;
-int dígito; 
 int contador;
 
 
@@ -11,13 +10,14 @@ int contador;
 	scanf("%d", &n);
 		
 	while(n > 0){
-
-		dígito= n  ;
-		contador = dígito  ;
+			// En esta parte se ejecuta el bucle
+			// En este caso, el número dado por el usuario se dividira entre 10, y la función contador lo que hace es contar cuantas vueltas da n = n /10 y contarlas.
+	
 		n = n /10;
+		contador++;
 
-		printf("%d\n", contador);
 	}
+		printf("%d\n", contador);
 
 return 0;
 }
