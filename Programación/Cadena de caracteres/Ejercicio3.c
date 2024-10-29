@@ -2,23 +2,18 @@
 #include <stdlib.h>
 
 int main(){
+// El programa al ejecutarse indica que son distintas, esto debido a que el comando str1 o variable, guarda la dirreción de memoria donde se guardan los datos, por eso nos idica que es distinto aunque sean iguales, por que las dirrecciones de memoria se guardan de manera aleatoria.
+//
+	char str1[100] = "iguales";
+	char str2[100] = "iguales";
 
-	char str1[100];
-	int posicion;
-	char caracter;
-
-	printf("Introduzca una palabra: ");
-	scanf("%s", str1);
-
-	printf("¿Cuántos caracteres tiene tu palabra? ");
-	scanf(" %d", &posicion);
-
-	printf("¿Qué caracter desea poner? ");
-	scanf(" %c", &caracter);
-
-	str1[posicion]=caracter;
-
-	printf("La nueva palabra es: %s\n", str1);
+	if (str1 == str2){
+		printf("Son iguales");
+	
+	}else{
+		printf("Son distintas\n");
+	
+	}
 
 	return EXIT_SUCCESS;
 
