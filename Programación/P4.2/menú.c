@@ -51,6 +51,7 @@ if (opcion == 1){
 	}else{
 		printf("Error en la función calcular_area_figura\n");
 }
+}
 
 double calcular_promedio_tres_num(double num1, double num2, double num3){
 
@@ -81,7 +82,8 @@ if (números == 3){
 	printf("Introduce el número 3:\n");
 	scanf("%lf", &num3);
 	
-	printf("El promedio de %lf, %lf y %lf es:\n", num1, num2, num3);
+	double promedio = calcular_promedio_tres_num(num1, num2, num3);
+	printf("El promedio de %lf, %lf y %lf es: %lf\n", num1, num2, num3, promedio);
 
 }else if (números == 4){
 	
@@ -93,10 +95,12 @@ if (números == 3){
 	scanf("%lf", &num3);
 	printf("Introduce el número 4:\n");
 	scanf("%lf", &num4);
-	
-	printf("El promedio de %lf, %lf, %lf y %lf es:\n", num1, num2, num3, num4);
+
+	double promedio = calcular_promedio_cuatro_num(num1, num2, num3, num4);
+	printf("El promedio de %lf, %lf, %lf y %lf es: %lf\n", num1, num2, num3, num4, promedio);
 
 }
+}  
 
 int main(){
 
@@ -127,7 +131,7 @@ switch(funciones){
 
 	case 3:
 	
-		calcular_promedio();	
+		calcular_promedio(0, 0, 0, 0);	
 
 	break;
 }
