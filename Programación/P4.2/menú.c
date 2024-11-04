@@ -102,6 +102,30 @@ if (números == 3){
 }
 }  
 
+void convertir_hora_24_a_12(){
+int num;
+
+	printf("Introduzca la hora en formato 24 horas, para pasarlo a formato 12 horas: ");
+	scanf("%d", &num);
+
+	if (num <= 12){
+
+	printf("El número %d ya está en formato de 12 horas\n", num);
+	
+	}else if (num < 24){
+		
+		num = num - 12;
+
+		printf("La hora en formato de 12 horas es (%d)\n", num);
+
+	}
+	if (num == 0 || num > 24){
+	
+		printf("Hora no valida\n");
+
+	}
+}
+
 int main(){
 
 int funciones;
@@ -111,6 +135,7 @@ int funciones;
 	printf("1. Verificar si una letra es una vocal\n");
 	printf("2. Calcular el área de una figura (círculo o cuadrado)\n");
 	printf("3. Calcular el promedio de 3 o 4 números\n");
+	printf("4. Convertir una hora en formato de 24 horas a 12 horas: \n");
 
 	scanf("%d", &funciones);
 	
@@ -133,6 +158,10 @@ switch(funciones){
 	
 		calcular_promedio(0, 0, 0, 0);	
 
+	break;
+
+	case 4:
+		convertir_hora_24_a_12();
 	break;
 }
 
