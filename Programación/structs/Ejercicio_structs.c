@@ -4,7 +4,7 @@
 struct nombre_estudiante {
 	char nombre[50];
 	int edad;
-	int promedio;
+	double promedio;
 };
 
 int main(){
@@ -13,13 +13,13 @@ int main(){
 	//Rellenamos el segundo cliente por pantalla:
 	
 	printf("Introduce el nombre del estudiante: ");
-	scanf("%d", &estudiante[1].nombre[50]);
+	scanf("%s", estudiante.nombre);
 	printf("Introduce la edad del estudiante: ");
-	scanf("%d", &estudiante[1].edad);
+	scanf("%d", &estudiante.edad);
 	printf("Introduce el promedio del estudiante: ");
-	scanf("%d", &estudiante[1].promedio);
+	scanf("%lf", &estudiante.promedio);
 
-
+	printf("Los datos del estudiante son: %s %d %lf\n", estudiante.nombre, estudiante.edad, estudiante.promedio);
 	return EXIT_SUCCESS;
 
 }
