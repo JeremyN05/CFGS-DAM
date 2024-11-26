@@ -37,6 +37,15 @@ void inicializar(Estudiante * estudiante_a_rellenar, char * nombre, int edad, fl
 	strcpy(estudiante_a_rellenar -> nombre, nombre); //Aqui copiamos el nombre letra por letra, sin igualar el valor en la memoría.
 }
 
+// Tiene que recibir un puntero a estudiante, porque va a modificar la edad del estudiante
+// No es necesario un valor de retorno, por eso se utiliza el void
+// Cumpleañero es un puntero porque va a ser modificado en la función
+void cumpleanios(Estudiante * cumpleañero){
+	cumpleañero -> edad++;
+
+	
+}
+
 int main(){
 	Estudiante Listado[MAX_ESTUDIANTES]; //Aqui se reserva la memoria para los estudiantes, que son 560 bytes.
 	
@@ -65,6 +74,13 @@ for (int i = 0; i < num_estudiantes; i++){
 	
 	//inicializar(Listado + i, nombre, edad, nota);
 	inicializar(&Listado[i], nombre, edad, nota);
+
+	//El estudiante de la posición uno ha cumplido años
+	printf("Edad antigua de %s: %d\n",Listado[i].nombre, Listado[i].edad);
+	cumpleanios(&Listado[i]);
+	printf("Edad nueva: %d\n", Listado[i].edad);
+
+	 printf("\n");
 }
 
 return EXIT_SUCCESS;
