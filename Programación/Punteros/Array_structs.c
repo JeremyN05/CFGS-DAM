@@ -1,8 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+//Definimos las constantes
 #define MAX_NOMBRE 20
 #define MAX_ESTUDIANTES 20
+#define MAX_BUFFER 200
+
 //*Como funcionan los punteros con los structs
 
 typedef struct{
@@ -43,8 +47,47 @@ void inicializar(Estudiante * estudiante_a_rellenar, char * nombre, int edad, fl
 void cumpleanios(Estudiante * cumpleañero){
 	cumpleañero -> edad++;
 
-	
 }
+
+//Vamos a crear una función para imprimir un Estudiante. Lo vamos a hacer de dos formas.
+
+//Recibe un estudiante y muestra por pantalla la información del estudiante
+
+void imprimirEstudiante(const Estudiante * estudiante_a_imprimir){ //El const de delante de Estudiante, hace que el contenido de Estudiante, no se pueda modificar.
+	printf("Nombre: %s\n", estudiante_a_imprimir -> nombre);
+	printf("\tEdad: %d\n", estudiante_a_imprimir -> edad);
+	printf("\tNota: %f\n", estudiante_a_imprimir -> nota);
+}	
+
+/*Una función de imprimir sin los printf */
+//Convertir un estudiante a una cadena de texto
+//Esta función da un warning, porque la variable retval deja de existir cuando acaba la función.
+
+/*Warning*/
+/*char * estudianteToString(const Estudiante * datos){
+	char retval[MAX_BUFFER];
+
+//snprintf (dónde, cuando, el qué [Lo que harías con un printf])
+	snprintf(retval, MAX_BUFFER, "El estudiante %s de %d años ha sacado un %f.", datos -> nombre, datos -> edad, datos -> nota);
+
+//Quiero que sea un argumento y rellenarla
+	return retval;
+}*/
+
+void * estudianteToString(const Estudiante * datos, char * retval){
+
+	snprintf(retval, MAX_BUFFER*sizeof(char), "El estudiante %s de %d años ha sacado un %f.", datos -> nombre, datos -> edad, datos -> nota);
+
+	return retval;
+}
+	
+void cambiarNombre_Estudiante(Estudiante * RenombrarEstudiante, char * nuevo_nombre){
+
+	printf("Introduzca el nuevo nombre: ");
+	scanf("%s", nuevo_nombre);
+
+	strcpy(RenombrarEstudiante -> nombre, nuevo_nombre);
+	}
 
 int main(){
 	Estudiante Listado[MAX_ESTUDIANTES]; //Aqui se reserva la memoria para los estudiantes, que son 560 bytes.
@@ -72,6 +115,8 @@ for (int i = 0; i < num_estudiantes; i++){
 	printf("Introduce la nota: ");
 	scanf("%f", &nota);
 	
+	printf("\n");
+
 	//inicializar(Listado + i, nombre, edad, nota);
 	inicializar(&Listado[i], nombre, edad, nota);
 
@@ -80,7 +125,28 @@ for (int i = 0; i < num_estudiantes; i++){
 	cumpleanios(&Listado[i]);
 	printf("Edad nueva: %d\n", Listado[i].edad);
 
-	 printf("\n");
+	printf("\n");
+
+	/* Vamos a imprimir estudiantes*/
+
+	imprimirEstudiante(&Listado[i]);
+
+	//El estudiante... de ... años ...
+
+	printf("\n");
+
+	char StringArellenar[MAX_BUFFER];
+	estudianteToString(&Listado[i], StringArellenar);
+	printf("%s\n", StringArellenar);
+
+	printf("\n");
+
+
+	cambiarNombre_Estudiante(Listado, nombre);
+	printf("El nuevo nombre %s\n", Listado[i].nombre);
+
+	printf("\n");
+	
 }
 
 return EXIT_SUCCESS;
