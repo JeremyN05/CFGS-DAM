@@ -22,20 +22,54 @@ typedef struct{
 	char Title[MAX_TITULO];
 	char Author[MAX_AUTHOR];
 	float Price;
-	CATEGORY Genres;
 	int Available_quantity;
+	CATEGORY Genres;
 
 }BOOK;
 
-void mostrar(BOOK * Books){
-
-	for(int i = 0; i <= 40; i++);
-		printf("%d %s %s %.2f %d %d\n", Books -> ID_BOOK, Books -> Title, Books -> Author, Books -> Price, Books -> Available_quantity, Books -> Genres);
-
+void printBOOK(BOOK * Book){
+	
+	printf("%d %s %s %.2f %d %d \n", Book -> ID_BOOK, Book -> Title, Book -> Author, Book -> Price, Book -> Available_quantity, Book -> Genres);
 }
 
+void Show_books(BOOK * Books){
+
+	for (int i = 0; i <40; i++){
+	printBOOK(&Books[i]);
+	}
+
+}
+//
+void Get_ID(BOOK * Books){
+int ID;
+
+	printf("Introduzca el ID del libro que quiera ver sus datos: ");
+	scanf("%d", &ID);
+
+	for (int i = 0; i < 40; i++){
+		
+		if(Books[i].ID_BOOK == ID){
+
+			printBOOK(&Books[i]);
+			printf("\n");
+		}
+		else if(ID < 1 || ID > 40){
+
+			printf("El ID %d no existe \n", ID);
+			printf("\n");
+			break;
+		}
+	}
+}
+
+/*void aumentar_stock{
+	int suma_stock;
+}
+*/
 int main(){
-	
+
+/*int mostrar_ID;*/
+
 	BOOK Books[40] = {
 		{1, "To Kill a Mockingbird", "Harper Lee", 15.99, FICTION, 10},
 		{2, "1984", "George Orwell", 12.49, FICTION, 5},
@@ -79,7 +113,27 @@ int main(){
 		{40, "Thus Spoke Zarathustra", "Friedrich Nietzsche", 14.99, ESSAY, 10}
 		};
 
-		mostrar(Books);
+		Show_books(Books);
+	printf("\n");
+		
+		Get_ID(Books);
 
+		/*switch(mostrar_ID){
+
+			case 1:
+
+				printf("%s %s %.2f %d %d \n", Books[0].Title, Books[0].Author, Books[0].Price, Books[0].Available_quantity, Books[0].Genres); crear una variable con el printf, para no repetirlo
+			
+			break;
+
+			case 2:
+
+				printf("%s %s %.2f %d %d \n", Books[1].Title, Books[1].Author, Books[1].Price, Books[1].Available_quantity, Books[1].Genres);
+
+			break;
+
+		default: printf("Número incorrecto \n");
+		} 
+		*/
 	return 0;
 }
