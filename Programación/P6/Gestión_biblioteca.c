@@ -6,6 +6,7 @@
 
 #define MAX_TITULO 80
 #define MAX_AUTHOR 60
+#define SIZE_CATALOGY 40
 
 typedef enum{
 		
@@ -34,7 +35,7 @@ void printBOOK(BOOK * Book){
 
 void Show_books(BOOK * Books){
 
-	for (int i = 0; i <40; i++){
+	for (int i = 0; i < SIZE_CATALOGY; i++){
 	printBOOK(&Books[i]);
 	}
 
@@ -46,7 +47,7 @@ int ID;
 	printf("Introduzca el ID del libro que quiera ver sus datos: ");
 	scanf("%d", &ID);
 
-	for (int i = 0; i < 40; i++){
+	for (int i = 0; i < SIZE_CATALOGY; i++){
 		
 		if(Books[i].ID_BOOK == ID){
 
@@ -62,10 +63,29 @@ int ID;
 	}
 }
 
-/*void aumentar_stock{
-	int suma_stock;
+void aumentar_stock(BOOK * Books){
+	int número;
+	int número_ID;
+
+		printf("¿Desea aumentar el stock de algún libro? selecciones una opción (0 no |1 sí:) ");
+		scanf("%d", &número);
+			
+		if(número == 0){
+			printf("Sin aumentar stock, saliendo.\n");
+
+		}else if(número = 1){
+			printf("Introduzca el id del libro ha aumentar el stock: \n");
+			scanf("%d", &número_ID);
+
+		}for (int i = 0; i < SIZE_CATALOGY; i++){
+
+			if(número_ID == &Books[i].ID_BOOK){
+				printf("Cuanto quieres aumentar el stock del Libro con el ID %d: \n", Books -> ID_BOOK);
+				printBOOK(Books);
+			}
+		}
 }
-*/
+
 int main(){
 
 /*int mostrar_ID;*/
@@ -117,23 +137,7 @@ int main(){
 	printf("\n");
 		
 		Get_ID(Books);
+		aumentar_stock(Books);
 
-		/*switch(mostrar_ID){
-
-			case 1:
-
-				printf("%s %s %.2f %d %d \n", Books[0].Title, Books[0].Author, Books[0].Price, Books[0].Available_quantity, Books[0].Genres); crear una variable con el printf, para no repetirlo
-			
-			break;
-
-			case 2:
-
-				printf("%s %s %.2f %d %d \n", Books[1].Title, Books[1].Author, Books[1].Price, Books[1].Available_quantity, Books[1].Genres);
-
-			break;
-
-		default: printf("Número incorrecto \n");
-		} 
-		*/
 	return 0;
 }
