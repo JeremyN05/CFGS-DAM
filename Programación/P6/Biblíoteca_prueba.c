@@ -35,7 +35,7 @@ typedef struct{
 //Función que nos ahorra tener que estar escribiendo todo el rato el printf que hay dentro.
 void printBOOK(BOOK * Book){ // Para no tener que estar todo el rato escribiendo un printf con los datos de libro, se crea una variable que ya tenga este printf hecho, y asi solo lo llamamos donde lo necesitemos. 
 	
-	printf("ID: (%d) título: (%s) autor o autores: (%s) precio: (%.2f) género: (%d) stock: (%d) \n", Book -> ID_BOOK, Book -> Title, Book -> Author, Book -> Price, Book -> Genres, Book -> Available_quantity); //Este printf muestra por pantalla el contenido de BOOK, es decir, muestra el contenido que esta en la dirección de memoría de BOOK, si usaramos el punto en vez de la flecha, prodiamos modificar el valor que esta en la dirección de memoria de BOOK 
+	printf("ID %d título %s autor o autores %s precio %.2f género %d stock %d \n", Book -> ID_BOOK, Book -> Title, Book -> Author, Book -> Price, Book -> Genres, Book -> Available_quantity); //Este printf muestra por pantalla el contenido de BOOK, es decir, muestra el contenido que esta en la dirección de memoría de BOOK, si usaramos el punto en vez de la flecha, prodiamos modificar el valor que esta en la dirección de memoria de BOOK 
 }
 
 //Variable que muestra todos los libros con sus respectivos datos.
@@ -60,8 +60,7 @@ int ID; //Variable que guarda el ID que el usuario indique
 
 			printBOOK(&Books[i]); //Imprime todos los datos de Books, siempre que se cumpla lo indicado en el bucle.
 			printf("\n");
-			
-			return 0;
+			break;
 		}
 		else if(ID < 1 || ID > 40){ //Aquí verificamos si el identificador proporcionado por el usuario es menor que 1 o mayor que 40, valores que representan los límites válidos dentro de la variable books. En caso de que el ID dado por el usuario esté fuera de este rango, se genera un mensaje de error indicando que dicho identificador no existe.
 
@@ -100,7 +99,8 @@ void Increase_or_decrease_stock(BOOK * Books){
 				Books[i].Available_quantity += amount; //En esta parte modificamos el valor dentro de la dirección de memoría de Books (Con el punto), que en este caso se corresponde a Available_quantity para sumar este con el número indicado por el usuario, se usa el punto para modificar el valor y no la -> porque es la dirección de memoria.
 
 				printf("The book with the ID %d now has a stock of %d\n", number_ID, Books[i].Available_quantity); //Mostramos el stock despues de realizar el aumento o disminución del stock indicado por el usuario.
-				printf("\n");
+				
+				break;
 			}
 		}
 }
@@ -129,7 +129,9 @@ void Show_Books_By_Category(BOOK * Books){ //Esta variable se podría hacer con 
 	}
 }
 
-int main(){
+//argc: número de argumentos recibidos 
+//argv: array de cadenas de texto
+int main(int argc, char ** argv){
 
 	//BOOK contiene Books.
 	BOOK Books[SIZE_CATALOG] = { //Cadena de caracteres que contiene Books, estos son los libros que se utilizaran en los diferentes apartados de la práctica.
@@ -175,18 +177,26 @@ int main(){
 		{40, "Thus Spoke Zarathustra", "Friedrich Nietzsche", 14.99, ESSAY, 10}
 		};
 
+	
+	int i;
+	
+		if (strcmp (argv[i], "Show") == 0 ){
+			Show_books(Books);
+			printf("\n");
+		}
+
 		//LLamado a la función mostrar libros, ya que se encuentra fuera del main y para que esta funcione.
-		Show_books(Books);
-		printf("\n");
+		/*Show_books(Books);
+		printf("\n");*/
 		
 		//LLamado a la función mostra libro por la id que indique el usuario.
-		Get_ID(Books);
+		/*Get_ID(Books);*/
 
 		//LLamado a la función incrementar o disminuir el stock de un libro que indique el usuario
-		Increase_or_decrease_stock(Books);
+		/*Increase_or_decrease_stock(Books);*/
 
 		//LLamado a la función mostrar libros por la categoría indicada por el usuario.
-		Show_Books_By_Category(Books);
+		/*Show_Books_By_Category(Books);*/
 
 	return 0; //Si devuelve 1 o cualquier otro número distinto a cero, indicara que ha surgido un error.
 }
