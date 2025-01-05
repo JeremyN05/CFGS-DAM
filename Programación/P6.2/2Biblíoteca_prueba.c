@@ -38,6 +38,8 @@ void printBOOK(LIBRO * Libro){ // Para no tener que estar todo el rato escribien
 	printf("ID %d título %s autor o autores %s precio %.2f género %d stock %d \n", Libro -> ID_LIBRO, Libro -> Titulo, Libro -> Autor, Libro -> Precio, Libro -> Genero, Libro -> Stock); //Este printf muestra por pantalla el contenido de BOOK, es decir, muestra el contenido que esta en la dirección de memoría de BOOK, si usaramos el punto en vez de la flecha, prodiamos modificar el valor que esta en la dirección de memoria de BOOK 
 }
 
+inizializarLibro(Catalogo+[i], ID, Titulo, Autor, Precio, Stock, Genero);
+
 //Variable que muestra todos los libros con sus respectivos datos.
 void Mostrar_Libros(LIBRO * Libros){ //Es un puntero de BOOK a Books, poque queremos mostrar o modificar los datos que Books contiene.
 
@@ -129,7 +131,7 @@ void Mostrar_Libro_Genero(LIBRO * Libros){ //Esta variable se podría hacer con 
 	}
 }
 
-void Añadir_Libro(LIBRO * Libros){
+void Añadir_Libro(LIBRO * direccion, int añadir_ID, char * añadir_Titullo, char * añadir_Autor, float añadir_Precio, int añadir_Genero, int añadir_Stock){
 
 	int ID_LIBRO;
 	char Titulo[MAX_TITULO];
@@ -161,49 +163,49 @@ void Añadir_Libro(LIBRO * Libros){
 //argv: array de cadenas de texto
 int main(int argc, char ** argv){
 
-	//LIBRO contiene Libros.
-	LIBRO Libros[SIZE_CATALOG] = { //Cadena de caracteres que contiene Books, estos son los libros que se utilizaran en los diferentes apartados de la práctica.
-		{1, "To Kill a Mockingbird", "Harper Lee", 15.99, FICCION, 10},
-		{2, "1984", "George Orwell", 12.49, FICCION, 5},
-		{3, "The Great Gatsby", "F. Scott Fitzgerald", 10.99, FICCION, 8},
-		{4, "Moby Dick", "Herman Melville", 18.99, FICCION, 12},
-		{5, "War and Peace", "Leo Tolstoy", 20.00, FICCION, 7},
-		{6, "Pride and Prejudice", "Jane Austen", 14.99, FICCION, 9},
-		{7, "The Catcher in the Rye", "J.D. Salinger", 10.00, FICCION, 6},
-		{8, "The Odyssey", "Homer", 17.49, FICCION, 4},
-		{9, "Ulysses", "James Joyce", 25.00, FICCION, 2},
-		{10, "The Divine Comedy", "Dante Alighieri", 22.00, POESIA, 3},
-		{11, "Leaves of Grass", "Walt Whitman", 13.00, POESIA, 11},
-		{12, "The Iliad", "Homer", 18.50, FICCION, 7},
-		{13, "A Brief History of Time", "Stephen Hawking", 15.00, NO_FICCION, 15},
-		{14, "The Art of War", "Sun Tzu", 9.99, NO_FICCION, 20},
-		{15, "Sapiens: A Brief History of Humankind", "Yuval Noah Harari", 16.49, NO_FICCION, 13},
-		{16, "The Selfish Gene", "Richard Dawkins", 14.00, NO_FICCION, 6},
-		{17, "The Road to Serfdom", "F.A. Hayek", 10.50, NO_FICCION, 5},
-		{18, "The Wealth of Nations", "Adam Smith", 30.00, NO_FICCION, 8},
-		{19, "On the Origin of Species", "Charles Darwin", 24.99, NO_FICCION, 4},
-		{20, "The Prince", "Niccolò Machiavelli", 8.99, NO_FICCION, 14},
-		{21, "Hamlet", "William Shakespeare", 11.50, TEATRO, 6},
-		{22, "Macbeth", "William Shakespeare", 9.50, TEATRO, 8},
-		{23, "Othello", "William Shakespeare", 10.99, TEATRO, 7},
-		{24, "A Doll's House", "Henrik Ibsen", 12.50, TEATRO, 5},
-		{25, "Waiting for Godot", "Samuel Beckett", 13.99, TEATRO, 4},
-		{26, "Death of a Salesman", "Arthur Miller", 14.99, TEATRO, 10},
-		{27, "The Glass Menagerie", "Tennessee Williams", 11.00, TEATRO, 9},
-		{28, "Long Day's Journey into Night", "Eugene O'Neill", 19.50, TEATRO, 3},
-		{29, "The Importance of Being Earnest", "Oscar Wilde", 8.50, TEATRO, 15},
-		{30, "The Waste Land", "T.S. Eliot", 6.99, POESIA, 10},
-		{31, "Paradise Lost", "John Milton", 12.00, POESIA, 7},
-		{32, "Beowulf", "Anonymous", 15.00, POESIA, 5},
-		{33, "Essays", "Michel de Montaigne", 20.00, ENSAYO	, 4},
-		{34, "Self-Reliance and Other Essays", "Ralph Waldo Emerson", 9.00, ENSAYO, 9},
-		{35, "Civil Disobedience and Other Essays", "Henry David Thoreau", 7.50, ENSAYO, 11},
-		{36, "Meditations", "Marcus Aurelius", 11.99, ENSAYO, 8},
-		{37, "The Federalist Papers", "Alexander Hamilton, James Madison, John Jay", 18.00, ENSAYO, 5},
-		{38, "The Communist Manifesto", "Karl Marx and Friedrich Engels", 5.99, ENSAYO, 12},
-		{39, "The Republic", "Plato", 16.00, ENSAYO, 6},
-		{40, "Thus Spoke Zarathustra", "Friedrich Nietzsche", 14.99, ENSAYO, 10}
-		};
+
+LIBRO * Libros = (LIBRO *) malloc (sizeof(LIBRO) * SIZE_CATALOG);
+
+		Añadir_Libro(Libros, 1, "To Kill a Mockingbird", "Harper Lee", 15.99, FICCION, 10);
+		Añadir_Libro(Libros, 2, "1984", "George Orwell", 12.49, FICCION, 5);
+		Añadir_Libro(Libros, 3, "The Great Gatsby", "F. Scott Fitzgerald", 10.99, FICCION, 8);
+		Añadir_Libro(Libros, 4, "Moby Dick", "Herman Melville", 18.99, FICCION, 12);
+		Añadir_Libro(Libros, 5, "War and Peace", "Leo Tolstoy", 20.00, FICCION, 7);
+		Añadir_Libro(Libros, 6, "Pride and Prejudice", "Jane Austen", 14.99, FICCION, 9);
+		Añadir_Libro(Libros, 7, "The Catcher in the Rye", "J.D. Salinger", 10.00, FICCION, 6);
+		Añadir_Libro(Libros, 8, "The Odyssey", "Homer", 17.49, FICCION, 4);
+		Añadir_Libro(Libros, 9, "Ulysses", "James Joyce", 25.00, FICCION, 2);
+		Añadir_Libro(Libros, 10, "The Divine Comedy", "Dante Alighieri", 22.00, POESIA, 3);
+		Añadir_Libro(Libros, 11, "Leaves of Grass", "Walt Whitman", 13.00, POESIA, 11);
+		Añadir_Libro(Libros, 12, "The Iliad", "Homer", 18.50, FICCION, 7);
+		Añadir_Libro(Libros, 13, "A Brief History of Time", "Stephen Hawking", 15.00, NO_FICCION, 15);
+		Añadir_Libro(Libros, 14, "The Art of War", "Sun Tzu", 9.99, NO_FICCION, 20);
+		Añadir_Libro(Libros, 15, "Sapiens: A Brief History of Humankind", "Yuval Noah Harari", 16.49, NO_FICCION, 13);
+		Añadir_Libro(Libros, 16, "The Selfish Gene", "Richard Dawkins", 14.00, NO_FICCION, 6);
+		Añadir_Libro(Libros, 17, "The Road to Serfdom", "F.A. Hayek", 10.50, NO_FICCION, 5);
+		Añadir_Libro(Libros, 18, "The Wealth of Nations", "Adam Smith", 30.00, NO_FICCION, 8);
+		Añadir_Libro(Libros, 19, "On the Origin of Species", "Charles Darwin", 24.99, NO_FICCION, 4);
+		Añadir_Libro(Libros, 20, "The Prince", "Niccolò Machiavelli", 8.99, NO_FICCION, 14);
+		Añadir_Libro(Libros, 21, "Hamlet", "William Shakespeare", 11.50, TEATRO, 6);
+		Añadir_Libro(Libros, 22, "Macbeth", "William Shakespeare", 9.50, TEATRO, 8);
+		Añadir_Libro(Libros, 23, "Othello", "William Shakespeare", 10.99, TEATRO, 7);
+		Añadir_Libro(Libros, 24, "A Doll's House", "Henrik Ibsen", 12.50, TEATRO, 5);
+		Añadir_Libro(Libros, 25, "Waiting for Godot", "Samuel Beckett", 13.99, TEATRO, 4);
+		Añadir_Libro(Libros, 26, "Death of a Salesman", "Arthur Miller", 14.99, TEATRO, 10);
+		Añadir_Libro(Libros, 27, "The Glass Menagerie", "Tennessee Williams", 11.00, TEATRO, 9);
+		Añadir_Libro(Libros, 28, "Long Day's Journey into Night", "Eugene O'Neill", 19.50, TEATRO, 3);
+		Añadir_Libro(Libros, 29, "The Importance of Being Earnest", "Oscar Wilde", 8.50, TEATRO, 15);
+		Añadir_Libro(Libros, 30, "The Waste Land", "T.S. Eliot", 6.99, POESIA, 10);
+		Añadir_Libro(Libros, 31, "Paradise Lost", "John Milton", 12.00, POESIA, 7);
+		Añadir_Libro(Libros, 32, "Beowulf", "Anonymous", 15.00, POESIA, 5);
+		Añadir_Libro(Libros, 33, "Essays", "Michel de Montaigne", 20.00, ENSAYO, 4);
+		Añadir_Libro(Libros, 34, "Self-Reliance and Other Essays", "Ralph Waldo Emerson", 9.00, ENSAYO, 9);
+		Añadir_Libro(Libros, 35, "Civil Disobedience and Other Essays", "Henry David Thoreau", 7.50, ENSAYO, 11);
+		Añadir_Libro(Libros, 36, "Meditations", "Marcus Aurelius", 11.99, ENSAYO, 8);
+		Añadir_Libro(Libros, 37, "The Federalist Papers", "Alexander Hamilton, James Madison, John Jay", 18.00, ENSAYO, 5);
+		Añadir_Libro(Libros, 38, "The Communist Manifesto", "Karl Marx and Friedrich Engels", 5.99, ENSAYO, 12);
+		Añadir_Libro(Libros, 39, "The Republic", "Plato", 16.00, ENSAYO, 6);
+		Añadir_Libro(Libros, 40, "Thus Spoke Zarathustra", "Friedrich Nietzsche", 14.99, ENSAYO, 10);
 
 	printf("Lista de arguemtos (hay %d argumentos):\n",argc);
     for(int i = 0; i<argc; i++){
@@ -255,10 +257,11 @@ int main(int argc, char ** argv){
         }
 
     } else if (argc == 4){
-        
+
         if(strcmp(argv[1], "stock") == 0){
         	
         	Aumentar_o_Disminuir_stock(Libros);
+
         }
     }
 
