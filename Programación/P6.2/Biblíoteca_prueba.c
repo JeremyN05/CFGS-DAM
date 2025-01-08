@@ -60,7 +60,7 @@ void Mostrar_ID(LIBRO * Libros, int ID){
 		}
 		else if(ID < 1 || ID > 40){ //Aquí verificamos si el identificador proporcionado por el usuario es menor que 1 o mayor que 40, valores que representan los límites válidos dentro de la variable books. En caso de que el ID dado por el usuario esté fuera de este rango, se genera un mensaje de error indicando que dicho identificador no existe.
 
-			printf("The ID %d does not exist \n", ID);
+			printf("El ID %d no existe \n", ID);
 			printf("\n");
 			break;
 		}
@@ -75,11 +75,11 @@ void Aumentar_o_Disminuir_stock(LIBRO * Libros, int numero_ID, int cantidad){
 
 			if(numero_ID == Libros[i].ID_LIBRO){ //En este bucle for, comprobamos que el número_ID que indica el usuario exista dentro de Books, si existe, se procedera a realizar lo que haya dentro de este.
 
-				printf("The book with the ID %d has a stock of %d \n", numero_ID, Libros[i].Stock); //En este printf mostramos por pantalla el stock que contiene el ID del libro.
+				printf("El libro con el ID %d tiene un stock de %d \n", numero_ID, Libros[i].Stock); //En este printf mostramos por pantalla el stock que contiene el ID del libro.
 				
 				Libros[i].Stock += cantidad; //En esta parte modificamos el valor dentro de la dirección de memoría de Books (Con el punto), que en este caso se corresponde a Available_quantity para sumar este con el número indicado por el usuario, se usa el punto para modificar el valor y no la -> porque es la dirección de memoria.
 
-				printf("The book with the ID %d now has a stock of %d\n", numero_ID, Libros[i].Stock); //Mostramos el stock despues de realizar el aumento o disminución del stock indicado por el usuario.
+				printf("El libro con el ID %d ahora tiene un stock de %d\n", numero_ID, Libros[i].Stock); //Mostramos el stock despues de realizar el aumento o disminución del stock indicado por el usuario.
 				
 				break;
 			}
@@ -89,7 +89,7 @@ void Aumentar_o_Disminuir_stock(LIBRO * Libros, int numero_ID, int cantidad){
 //Variable que muestra los libros de una categoría dada por el usuario.
 void Mostrar_Libro_Genero(LIBRO * Libros, int Num_Category){ //Esta variable se podría hacer con un swicht, pero decidi hacerlo con un bucle for, porque es más rapido de hacer.
 
-		printf("The books in the selected category are: \n");
+		printf("Los libros con la categoria seleccionada son: \n");
 
 		for (int i = 0; i < SIZE_CATALOG; i++){ //Este bucle for recorre el Array de libros hasta que el array sea menor que size_catalogy, size_catalogy esta definido que sea 40, y muestra por pantalla el contenido de Books.
 
@@ -99,7 +99,7 @@ void Mostrar_Libro_Genero(LIBRO * Libros, int Num_Category){ //Esta variable se 
 			
 			}else if(Num_Category < 0 | Num_Category > 4){ //Sí el número de la categoría es menor que 0 o mayor que 4, mostrara por pantalla el printf con el error.
 
-				printf("Error the category %d doesn't exist \n", Num_Category);
+				printf("Error la categoria %d no existe \n", Num_Category);
 				printf(" \n");
 				break;
 			}
@@ -147,10 +147,10 @@ void inicializar_libro (LIBRO * libro,int id, char * titulo, char * autor, int p
 
 //argc: número de argumentos recibidos 
 //argv: array de cadenas de texto
-int main(int argc, char ** argv){
+int main(int argc, char ** argv){ //argv empieza en el argumento cero que equivale a ./Biblioteca_prueba.c, el primer argumento sería lo que viene despúes. 
 
 
-		LIBRO * catalogo = (LIBRO * ) malloc (SIZE_CATALOG * sizeof(LIBRO));
+		LIBRO * catalogo = (LIBRO * ) malloc (SIZE_CATALOG * sizeof(LIBRO)); //Pasamos de memoría estática a memoría dinámica.
 
         inicializar_libro( &catalogo[0], 1, "To Kill a Mockingbird", "Harper Lee", 15.99, FICCION, 10);
         inicializar_libro( &catalogo[1], 2, "1984", "George Orwell", 12.49, FICCION, 5);
@@ -217,14 +217,13 @@ int main(int argc, char ** argv){
 
 		Añadir_Libro(catalogo);
 
-    } else if(argc == 2){
+    } else if(argc == 2){ //Si la línea de comandos recibe 2 argumentos ejecuta las siguiente funciones.
         // Mostrar o en añadir
 
-        if (strcmp(argv[1],"mostrar") == 0){
+        if (strcmp(argv[1],"mostrar") == 0){ //Si el primer argumento es mostrar, ejecuta la funcion Mostrar_Libros que imprime todo los libros que hay.
             // Llamo a la función mostrar todos los libros
 
-        	Mostrar_Libros(catalogo); //Llamo a la función Mostrar_Libros
-        	printBOOK(catalogo); //Imprime el contenido de Libros
+        	Mostrar_Libros(catalogo);
 
             printf("\n");
 
@@ -235,51 +234,30 @@ int main(int argc, char ** argv){
             printf("Llamo a la función añadir\n");
 
         }
-    } else if(argc == 3){
-        // Distinguir mostrar
+    } else if(argc == 3){ //Si la línea de comandos recibe 3 argumentos ejecuta las siguientes funciones.
 
-        if(strcmp(argv[1], "mostrar") == 0){
+        if(strcmp(argv[1], "mostrar") == 0){ //Si el primer argumento es mostrar y el segundo es un número entonces ejecuta la función Mostrar_ID,
         	int ID = atoi(argv[2]); //atoi junta el 1 y el 5, es decir, el número 15 en realidad son dos caracteres 1 y 5, atoi lo que hace es convertir esos dos caracteres en uno solo 
         	Mostrar_ID(catalogo, ID);
 
-        }else if(strcmp(argv[1], "categoria") == 0){
+        }else if(strcmp(argv[1], "categoria") == 0){ //Por el contrario si el primer argumento es categoria y un número de categoria ejecuta la función Mostrar_Libro_Genero.
 
         	int Num_Category = atoi(argv[2]);
         	Mostrar_Libro_Genero(catalogo, Num_Category);
         }
 
-    } else if (argc == 4){
+    } else if (argc == 4){ //Si la línea de comandos recibe 4 argumentos entonces ejecuta las siguiente funciones.
         
-        if(strcmp(argv[1], "stock") == 0){
+        if(strcmp(argv[1], "stock") == 0){ //Aqui comprobamos que el primer argumento se corresponda con la palabra stock, si es asi, se ejecuta el programa.
 			
-			int numero_ID = atoi(argv[2]);
+			int numero_ID = atoi(argv[2]); //Comprobamos que el segundo argumento se un número, atoi sirve para que por ejemplo si el usuario quiere aumentar el stock de un libro a 15, el 15 lo cuente como un solo caracter, porque sino lo cuenta como dos (1 y 5).
 
-			int cantidad = atoi(argv[3]);
+			int cantidad = atoi(argv[3]); //Pasa lo mismo que arriba por si el usuario quiere añdir 20 libros más de stock
 
         	Aumentar_o_Disminuir_stock(catalogo, numero_ID, cantidad);
         }
     }
-	/*int i;
-	
-		if (strcmp (argv[i], "Show") == i ){
-			Mostrar_Libros(Libros);
-			printf("\n");
-		}
-	*/
-	/*
-		//LLamado a la función mostrar libros, ya que se encuentra fuera del main y para que esta funcione.
-		Mostrar_Libros(Libros);
-		printf("\n");
-		
-		//LLamado a la función mostra libro por la id que indique el usuario.
-		Mostrar_ID(Libros);
 
-		//LLamado a la función incrementar o disminuir el stock de un libro que indique el usuario
-		Aumentar_o_Disminuir_stock(Libros);
-
-		//LLamado a la función mostrar libros por la categoría indicada por el usuario.
-		Mostrar_Libro_Genero(Libros);
-*/
 	return 0; //Si devuelve 1 o cualquier otro número distinto a cero, indicara que ha surgido un error.
 
 	free(catalogo);
