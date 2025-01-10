@@ -106,32 +106,49 @@ void Mostrar_Libro_Genero(LIBRO * Libros, int Num_Category){ //Esta variable se 
 	}
 }
 
-void Añadir_Libro(LIBRO * Libro){
+void Añadir_Libro(LIBRO * catalogo, int cantidad_libros_añadir){
 
-	int ID_LIBRO;
-	char Titulo[MAX_TITULO];
-	char Autor[MAX_AUTOR];
-	float Precio;
-	int Genero;
-	int Stock;
+	int Cantidad_libros = SIZE_CATALOG + cantidad_libros_añadir;
 
-	printf("Introduzca el ID(Mayor a 40): ");
-	scanf("%d", &ID_LIBRO);
+	LIBRO * catalogo2 = (LIBRO *) realloc(catalogo,Cantidad_libros * sizeof(LIBRO));
+
+	if (catalogo2 == NULL){
+		printf("ERROR no se puedo asignar memoria \n");
+		return;
+	}
+
+	catalogo = catalogo2;
+
+	for (int i = 40; i < Cantidad_libros; i++){
+
+	printf("Introduzca el ID (Mayor a 40): ");
+	scanf("%d", &catalogo2[i].ID_LIBRO);
 
 	printf("Introduzca el título del libro: ");
-	scanf("%s", Titulo);
+	scanf(" %[^\n]", catalogo2[i].Titulo);
 
 	printf("Introduce el nombre del Autor: ");
-	scanf("%s", Autor);
+	scanf(" %[^\n]", catalogo2[i].Autor);
 
 	printf("Introduzca el precio del libro: ");
-	scanf("%f", &Precio);
+	scanf("%f", &catalogo2[i].Precio);
+
+	int añadir_Genero;
 
 	printf("Introduzca el género del libro(0 = FICTION 1 = NO_FICCION, 2 = POESIA, 3 = TEATRO, 4 = ENSAYO): ");
-	scanf("%d", &Genero);
+	scanf("%d", &añadir_Genero);
+
+	catalogo2[i].Genero = añadir_Genero;
 
 	printf("Introduzca el stock del libro: ");
-	scanf("%d", &Stock);
+	scanf("%d", &catalogo2[i].Stock);
+	}
+
+	for (int i = 0; i < Cantidad_libros; i++){
+
+		printf("ID %d título %s autor o autores %s precio %.2f género %d stock %d \n", catalogo2[i].ID_LIBRO, catalogo2[i].Titulo, catalogo2[i].Autor, catalogo2[i].Precio, catalogo2[i].Genero, catalogo2[i].Stock);
+	}
+
 }
 
 void inicializar_libro (LIBRO * libro,int id, char * titulo, char * autor, int precio, int genero, int stock){
@@ -151,7 +168,10 @@ int main(int argc, char ** argv){ //argv empieza en el argumento cero que equiva
 
 
 		LIBRO * catalogo = (LIBRO * ) malloc (SIZE_CATALOG * sizeof(LIBRO)); //Pasamos de memoría estática a memoría dinámica.
-
+	
+	if (catalogo == NULL){
+		printf("ERROR no se puedo asignar memoria \n");
+}
         inicializar_libro( &catalogo[0], 1, "To Kill a Mockingbird", "Harper Lee", 15.99, FICCION, 10);
         inicializar_libro( &catalogo[1], 2, "1984", "George Orwell", 12.49, FICCION, 5);
         inicializar_libro( &catalogo[2], 3, "The Great Gatsby", "F. Scott Fitzgerald", 10.99, FICCION, 8);
@@ -193,29 +213,24 @@ int main(int argc, char ** argv){ //argv empieza en el argumento cero que equiva
         inicializar_libro( &catalogo[38], 39, "The Republic", "Plato", 16.00, ENSAYO, 6);
         inicializar_libro( &catalogo[39], 40, "Thus Spoke Zarathustra", "Friedrich Nietzsche", 14.99, ENSAYO, 10);
 
-
-	printf("Lista de arguemtos (hay %d argumentos):\n",argc);
-    for(int i = 0; i<argc; i++){
-    	printf("\t Argumento %d: %s\n",i,argv[i]);
-    }
-
     if (argc < 2){
         // Caso inicial.
 
         Mostrar_Libros(catalogo);
 		printf("\n");
 
-		int ID;
+		int ID = 1;
 		Mostrar_ID(catalogo, ID);
 
-		int numero_ID;
-		int cantidad;
+		int numero_ID = 1;
+		int cantidad = 2;
 		Aumentar_o_Disminuir_stock(catalogo, numero_ID, cantidad);
 
-		int Num_Category;
+		int Num_Category = 3;
 		Mostrar_Libro_Genero(catalogo, Num_Category);
 
-		Añadir_Libro(catalogo);
+		int Cantidad_libros = 0;
+		Añadir_Libro(catalogo, Cantidad_libros);
 
     } else if(argc == 2){ //Si la línea de comandos recibe 2 argumentos ejecuta las siguiente funciones.
         // Mostrar o en añadir
@@ -227,13 +242,8 @@ int main(int argc, char ** argv){ //argv empieza en el argumento cero que equiva
 
             printf("\n");
 
-        }else if (strcmp(argv[1],"añadir") == 0){
-
-        	Añadir_Libro(catalogo);
-
-            printf("Llamo a la función añadir\n");
-
         }
+
     } else if(argc == 3){ //Si la línea de comandos recibe 3 argumentos ejecuta las siguientes funciones.
 
         if(strcmp(argv[1], "mostrar") == 0){ //Si el primer argumento es mostrar y el segundo es un número entonces ejecuta la función Mostrar_ID,
@@ -244,6 +254,12 @@ int main(int argc, char ** argv){ //argv empieza en el argumento cero que equiva
 
         	int Num_Category = atoi(argv[2]);
         	Mostrar_Libro_Genero(catalogo, Num_Category);
+
+        }else if (strcmp(argv[1],"añadir") == 0){
+
+        	int Cantidad_libros = atoi(argv[2]);
+        	Añadir_Libro(catalogo, Cantidad_libros);
+
         }
 
     } else if (argc == 4){ //Si la línea de comandos recibe 4 argumentos entonces ejecuta las siguiente funciones.
