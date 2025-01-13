@@ -106,20 +106,20 @@ void Mostrar_Libro_Genero(LIBRO * Libros, int Num_Category){ //Esta variable se 
 	}
 }
 
-void Añadir_Libro(LIBRO * catalogo, int cantidad_libros_añadir){
+void Añadir_Libro(LIBRO * catalogo, int cantidad_libros_añadir){ //función para añadir libros
 
-	int Cantidad_libros = SIZE_CATALOG + cantidad_libros_añadir;
+	int Cantidad_libros = SIZE_CATALOG + cantidad_libros_añadir; //Se crea una variable para saber cuantos libros desea añadir el usuario, para ello aumentamos el tamaño del catalogo con la cantidad de libros que el usuario quiera añadir
 
-	LIBRO * catalogo2 = (LIBRO *) realloc(catalogo,Cantidad_libros * sizeof(LIBRO));
+	LIBRO * catalogo2 = (LIBRO *) realloc(catalogo,Cantidad_libros * sizeof(LIBRO)); //Creamos una dirección de memoria dinámica para guardar los libros nuevos que el usuario añada.
 
-	if (catalogo2 == NULL){
+	if (catalogo2 == NULL){ //Cuando catalogo2 es un numero nulo, salta un error.
 		printf("ERROR no se puedo asignar memoria \n");
 		return;
 	}
 
-	catalogo = catalogo2;
+	catalogo = catalogo2; //Indicamos que catalogo2 sigue la estructura de catalogo, esto nos evita poner las variables que ya exiten en catalogo, es decir, nos ahorramos escribir int ID_libro, char Titulo, etc...
 
-	for (int i = 40; i < Cantidad_libros; i++){
+	for (int i = 40; i < Cantidad_libros; i++){ //Creamos el bucle que recorre los libros del catalogo.
 
 	printf("Introduzca el ID (Mayor a 40): ");
 	scanf("%d", &catalogo2[i].ID_LIBRO);
@@ -138,20 +138,20 @@ void Añadir_Libro(LIBRO * catalogo, int cantidad_libros_añadir){
 	printf("Introduzca el género del libro(0 = FICTION 1 = NO_FICCION, 2 = POESIA, 3 = TEATRO, 4 = ENSAYO): ");
 	scanf("%d", &añadir_Genero);
 
-	catalogo2[i].Genero = añadir_Genero;
+	catalogo2[i].Genero = añadir_Genero; //
 
 	printf("Introduzca el stock del libro: ");
 	scanf("%d", &catalogo2[i].Stock);
 	}
 
-	for (int i = 0; i < Cantidad_libros; i++){
+	for (int i = 0; i < Cantidad_libros; i++){ //Bucle que recorre todos los libros del catalogo2 incluyendo los libros que el usuario añadio, para imprimir todos los libros juntos.
 
 		printf("ID %d título %s autor o autores %s precio %.2f género %d stock %d \n", catalogo2[i].ID_LIBRO, catalogo2[i].Titulo, catalogo2[i].Autor, catalogo2[i].Precio, catalogo2[i].Genero, catalogo2[i].Stock);
 	}
 
 }
 
-void inicializar_libro (LIBRO * libro,int id, char * titulo, char * autor, int precio, int genero, int stock){
+void inicializar_libro (LIBRO * libro,int id, char * titulo, char * autor, int precio, int genero, int stock){ //Creamos una función que guarde los datos de los nuevos libros.
 
 	libro->ID_LIBRO = id;
 	strcpy(libro->Titulo , titulo);
