@@ -138,7 +138,7 @@ void Añadir_Libro(LIBRO * catalogo, int cantidad_libros_añadir){ //función pa
 	printf("Introduzca el género del libro(0 = FICTION 1 = NO_FICCION, 2 = POESIA, 3 = TEATRO, 4 = ENSAYO): ");
 	scanf("%d", &añadir_Genero);
 
-	catalogo2[i].Genero = añadir_Genero; //
+	catalogo2[i].Genero = añadir_Genero; //Creo una nueva variable para igualarla al catalago2[i].Genero, porque sino no te pilla el genero, que es un int, no una cadena de caracteres.
 
 	printf("Introduzca el stock del libro: ");
 	scanf("%d", &catalogo2[i].Stock);
@@ -151,6 +151,28 @@ void Añadir_Libro(LIBRO * catalogo, int cantidad_libros_añadir){ //función pa
 
 }
 
+void imprimir_autor (LIBRO * Libros, char * buscar_autor){ //Función para buscar libros por el autor o por los autores.
+
+int encontrado =0;
+
+for (int i = 0; i < SIZE_CATALOG; i++){ //Este bucle recorre todos los libros que hay en SIZE_CATALOG
+
+	for(int j = 0; j < MAX_AUTOR; j++){ //En este bucle buscamos caracter por caracter el nombre del autor del libro
+
+	if (strncmp(Libros[i].Autor + j, buscar_autor, strlen(buscar_autor)) == 0){
+		printBOOK(&Libros[i]);
+		encontrado = 1;
+		}
+
+	}
+
+	}
+
+	if (encontrado == 0){
+		printf("No existe el autor indicado");
+	}
+}
+
 void inicializar_libro (LIBRO * libro,int id, char * titulo, char * autor, int precio, int genero, int stock){ //Creamos una función que guarde los datos de los nuevos libros.
 
 	libro->ID_LIBRO = id;
@@ -161,6 +183,8 @@ void inicializar_libro (LIBRO * libro,int id, char * titulo, char * autor, int p
 	libro->Stock = stock;
 
 }
+
+
 
 //argc: número de argumentos recibidos 
 //argv: array de cadenas de texto
@@ -232,6 +256,9 @@ int main(int argc, char ** argv){ //argv empieza en el argumento cero que equiva
 		int Cantidad_libros = 0;
 		Añadir_Libro(catalogo, Cantidad_libros);
 
+		char * buscar_autor;
+		imprimir_autor(catalogo, buscar_autor);
+
     } else if(argc == 2){ //Si la línea de comandos recibe 2 argumentos ejecuta las siguiente funciones.
         // Mostrar o en añadir
 
@@ -260,6 +287,10 @@ int main(int argc, char ** argv){ //argv empieza en el argumento cero que equiva
         	int Cantidad_libros = atoi(argv[2]);
         	Añadir_Libro(catalogo, Cantidad_libros);
 
+        }else if (strcmp(argv[1],"buscar") == 0){
+
+        	char * buscar_autor = argv[2];
+        	imprimir_autor(catalogo, buscar_autor);
         }
 
     } else if (argc == 4){ //Si la línea de comandos recibe 4 argumentos entonces ejecuta las siguiente funciones.
