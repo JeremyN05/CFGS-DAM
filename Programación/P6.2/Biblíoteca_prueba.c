@@ -106,7 +106,7 @@ void Mostrar_Libro_Genero(LIBRO * Libros, int Num_Category){ //Esta variable se 
 	}
 }
 
-void Añadir_Libro(LIBRO * catalogo, int cantidad_libros_añadir){ //función para añadir libros
+LIBRO * Añadir_Libro(LIBRO * catalogo, int cantidad_libros_añadir){ //función para añadir libros
 
 	int Cantidad_libros = SIZE_CATALOG + cantidad_libros_añadir; //Se crea una variable para saber cuantos libros desea añadir el usuario, para ello aumentamos el tamaño del catalogo con la cantidad de libros que el usuario quiera añadir
 
@@ -114,7 +114,7 @@ void Añadir_Libro(LIBRO * catalogo, int cantidad_libros_añadir){ //función pa
 
 	if (catalogo2 == NULL){ //Cuando catalogo2 es un numero nulo, salta un error.
 		printf("ERROR no se puedo asignar memoria \n");
-		return;
+		exit(EXIT_FAILURE) ;
 	}
 
 	catalogo = catalogo2; //Indicamos que catalogo2 sigue la estructura de catalogo, esto nos evita poner las variables que ya exiten en catalogo, es decir, nos ahorramos escribir int ID_libro, char Titulo, etc...
@@ -149,29 +149,32 @@ void Añadir_Libro(LIBRO * catalogo, int cantidad_libros_añadir){ //función pa
 		printf("ID %d título %s autor o autores %s precio %.2f género %d stock %d \n", catalogo2[i].ID_LIBRO, catalogo2[i].Titulo, catalogo2[i].Autor, catalogo2[i].Precio, catalogo2[i].Genero, catalogo2[i].Stock);
 	}
 
+	 return &catalogo2[0];
 }
 
-void imprimir_autor (LIBRO * Libros, char * buscar_autor){ //Función para buscar libros por el autor o por los autores.
+void imprimir_autor(LIBRO *Libros, char *buscar_autor) {
+    if (buscar_autor == NULL) {
+        printf("Error: el autor a buscar es NULL\n");
+        return;
+    }
 
-int encontrado =0;
+    int encontrado = 0;
 
-for (int i = 0; i < SIZE_CATALOG; i++){ //Este bucle recorre todos los libros que hay en SIZE_CATALOG
+    for (int i = 0; i < SIZE_CATALOG; i++) { // Recorre todos los libros en el catálogo
+        if (Libros[i].Autor != NULL) { // Verifica que el autor del libro no sea NULL
+            // Busca la cadena directamente dentro del campo Autor
+            if (strstr(Libros[i].Autor, buscar_autor) != NULL) {
+                printBOOK(&Libros[i]); // Muestra el libro
+                encontrado = 1;
+            }
+        }
+    }
 
-	for(int j = 0; j < MAX_AUTOR; j++){ //En este bucle buscamos caracter por caracter el nombre del autor del libro
-
-	if (strncmp(Libros[i].Autor + j, buscar_autor, strlen(buscar_autor)) == 0){
-		printBOOK(&Libros[i]);
-		encontrado = 1;
-		}
-
-	}
-
-	}
-
-	if (encontrado == 0){
-		printf("No existe el autor indicado");
-	}
+    if (!encontrado) {
+        printf("No existe el autor indicado\n");
+    }
 }
+
 
 void inicializar_libro (LIBRO * libro,int id, char * titulo, char * autor, int precio, int genero, int stock){ //Creamos una función que guarde los datos de los nuevos libros.
 
@@ -285,7 +288,7 @@ int main(int argc, char ** argv){ //argv empieza en el argumento cero que equiva
         }else if (strcmp(argv[1],"añadir") == 0){
 
         	int Cantidad_libros = atoi(argv[2]);
-        	Añadir_Libro(catalogo, Cantidad_libros);
+        	catalogo = Añadir_Libro(catalogo, Cantidad_libros);
 
         }else if (strcmp(argv[1],"buscar") == 0){
 
@@ -305,7 +308,9 @@ int main(int argc, char ** argv){ //argv empieza en el argumento cero que equiva
         }
     }
 
-	return 0; //Si devuelve 1 o cualquier otro número distinto a cero, indicara que ha surgido un error.
+	 //Si devuelve 1 o cualquier otro número distinto a cero, indicara que ha surgido un error.
 
 	free(catalogo);
+
+	return 0;
 }
