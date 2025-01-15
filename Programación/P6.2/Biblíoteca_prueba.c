@@ -156,7 +156,7 @@ LIBRO * Añadir_Libro(LIBRO * catalogo, int cantidad_libros_añadir){ //función
 
 // Función para buscar libros por autor
 // Busca coincidencias en el nombre del autor
-void imprimir_autor(LIBRO *Libros, char *buscar_autor) {
+void imprimir_autor(LIBRO *Libros, char * buscar_autor) {
     if (buscar_autor == NULL) {
         printf("Error: el autor a buscar es NULL\n");
         return;
@@ -261,7 +261,7 @@ int main(int argc, char ** argv){ //argv empieza en el argumento cero que equiva
 		Mostrar_Libro_Genero(catalogo, Num_Category);
 
 		int Cantidad_libros = 0;
-		Añadir_Libro(catalogo, Cantidad_libros);
+		catalogo = Añadir_Libro(catalogo, Cantidad_libros);
 
 		char * buscar_autor;
 		imprimir_autor(catalogo, buscar_autor);
