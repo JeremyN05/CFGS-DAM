@@ -34,169 +34,32 @@ typedef struct{
 
 // Función para imprimir los detalles de un libro
 // Recibe un puntero a un libro y muestra sus atributos
-void printBOOK(const LIBRO * Libro){ // Para no tener que estar todo el rato escribiendo un printf con los datos de libro, se crea una variable que ya tenga este printf hecho, y asi solo lo llamamos donde lo necesitemos. 
-	
-	printf("ID %d título %s autor o autores %s precio %.2f género %d stock %d \n", Libro -> ID_LIBRO, Libro -> Titulo, Libro -> Autor, Libro -> Precio, Libro -> Genero, Libro -> Stock); //Este printf muestra por pantalla el contenido de BOOK, es decir, muestra el contenido que esta en la dirección de memoría de BOOK, si usaramos el punto en vez de la flecha, prodiamos modificar el valor que esta en la dirección de memoria de BOOK 
-}
+void printBOOK(const LIBRO * Libro);
 
 //Variable que muestra todos los libros con sus respectivos datos.
-void Mostrar_Libros(const LIBRO * Libros){ //Es un puntero de BOOK a Books, poque queremos mostrar o modificar los datos que Books contiene.
+void Mostrar_Libros(const LIBRO * Libros);
 
-	for (int i = 0; i < SIZE_CATALOG; i++){ //Este bucle for recorre el Array de libros hasta que el array sea menor que size_catalogy, size_catalogy esta definido que sea 40, y muestra por pantalla el contenido de Books.
-	printBOOK(&Libros[i]); //Este printBOOK, es la variable creada anteriormente, el cual nos ahorra tener que estar escribiendo printf todo el rato, el &Books[i] nos indica que imprima todo lo que haya dentro de la dirección de memoria de Books el & accede a la dirección de memoría de Books.
-	}
-
-}
 
 //Función que muestra el libro que desea ver el usuario
-void Mostrar_ID(const LIBRO * Libros, int ID){
+void Mostrar_ID(const LIBRO * Libros, int ID);
 
-	for (int i = 0; i < SIZE_CATALOG; i++){ //Este bucle for recorre el Array de libros hasta que el array sea menor que size_catalogy, size_catalogy esta definido que sea 40, y muestra por pantalla el contenido de Books.
-		
-		if(Libros[i].ID_LIBRO == ID){ //En este fragmento de código se compara el valor de ID_BOOK, que representa el identificador único del libro, con el identificador proporcionado por el usuario. Si ambos valores coinciden, el programa procederá a imprimir en pantalla la información correspondiente al libro.
-
-			printBOOK(&Libros[i]); //Imprime todos los datos de Books, siempre que se cumpla lo indicado en el bucle.
-			printf("\n");
-			break;
-		}
-		else if(ID < 1 || ID > 40){ //Aquí verificamos si el identificador proporcionado por el usuario es menor que 1 o mayor que 40, valores que representan los límites válidos dentro de la variable books. En caso de que el ID dado por el usuario esté fuera de este rango, se genera un mensaje de error indicando que dicho identificador no existe.
-
-			printf("El ID %d no existe \n", ID);
-			printf("\n");
-			break;
-		}
-	}
-}
 
 //Función que aumenta o disminuye el stock de un libro dado por el usuario.
-void Aumentar_o_Disminuir_stock(LIBRO * Libros, int numero_ID, int cantidad){
-			
+void Aumentar_o_Disminuir_stock(LIBRO * Libros, int numero_ID, int cantidad);
 
-		for (int i = 0; i < SIZE_CATALOG; i++){ //Este bucle for recorre el Array de libros hasta que el array sea menor que size_catalogy, size_catalogy esta definido que sea 40, y muestra por pantalla el contenido de Books.
-
-			if(numero_ID == Libros[i].ID_LIBRO){ //En este bucle for, comprobamos que el número_ID que indica el usuario exista dentro de Books, si existe, se procedera a realizar lo que haya dentro de este.
-
-				printf("El libro con el ID %d tiene un stock de %d \n", numero_ID, Libros[i].Stock); //En este printf mostramos por pantalla el stock que contiene el ID del libro.
-				
-				Libros[i].Stock += cantidad; //En esta parte modificamos el valor dentro de la dirección de memoría de Books (Con el punto), que en este caso se corresponde a Available_quantity para sumar este con el número indicado por el usuario, se usa el punto para modificar el valor y no la -> porque es la dirección de memoria.
-
-				printf("El libro con el ID %d ahora tiene un stock de %d\n", numero_ID, Libros[i].Stock); //Mostramos el stock despues de realizar el aumento o disminución del stock indicado por el usuario.
-				
-				break;
-			}
-		}
-}
 
 //Variable que muestra los libros de una categoría dada por el usuario.
-void Mostrar_Libro_Genero(const LIBRO * Libros, int Num_Category){ //Esta variable se podría hacer con un swicht, pero decidi hacerlo con un bucle for, porque es más rapido de hacer.
+void Mostrar_Libro_Genero(const LIBRO * Libros, int Num_Category); //Esta variable se podría hacer con un swicht, pero decidi hacerlo con un bucle for, porque es más rapido de hacer.
 
-		printf("Los libros con la categoria seleccionada son: \n");
-
-		for (int i = 0; i < SIZE_CATALOG; i++){ //Este bucle for recorre el Array de libros hasta que el array sea menor que size_catalogy, size_catalogy esta definido que sea 40, y muestra por pantalla el contenido de Books.
-
-			if(Num_Category == Libros[i].Genero){ //Comprobamos que el Num_Category coincida con algún dato en Books[i].Genres, si coinciden, imprimira por pantalla los libros que pertenezcan a la categoría indicada por el usuario.
-			
-				printBOOK(&Libros[i]); //Imprime todos los datos de Books, siempre que se cumpla lo indicado en el bucle.
-			
-			}else if(Num_Category < 0 | Num_Category > 4){ //Sí el número de la categoría es menor que 0 o mayor que 4, mostrara por pantalla el printf con el error.
-
-				printf("Error la categoria %d no existe \n", Num_Category);
-				printf(" \n");
-				break;
-			}
-	}
-}
 
 // Redimensiona el array y permite ingresar nuevos libros
-LIBRO * Añadir_Libro(LIBRO * catalogo, int cantidad_libros_añadir){ //función para añadir libros
-
-	int Cantidad_libros = SIZE_CATALOG + cantidad_libros_añadir; //Se crea una variable para saber cuantos libros desea añadir el usuario, para ello aumentamos el tamaño del catalogo con la cantidad de libros que el usuario quiera añadir
-
-	LIBRO * catalogo2 = (LIBRO *) realloc(catalogo,Cantidad_libros * sizeof(LIBRO)); //Creamos una dirección de memoria dinámica para guardar los libros nuevos que el usuario añada.
-
-	if (catalogo2 == NULL){ //Cuando catalogo2 es un numero nulo, salta un error.
-		printf("ERROR no se puedo asignar memoria \n");
-		exit(EXIT_FAILURE) ;
-	}
-
-	catalogo = catalogo2; //Indicamos que catalogo2 sigue la estructura de catalogo, esto nos evita poner las variables que ya exiten en catalogo, es decir, nos ahorramos escribir int ID_libro, char Titulo, etc...
-
-	for (int i = 40; i < Cantidad_libros; i++){ //Creamos el bucle que recorre los libros del catalogo.
-
-	printf("Introduzca el ID (Mayor a 40): ");
-	int valor_entorno = scanf("%d", &catalogo2[i].ID_LIBRO);
-
-	if (valor_entorno == 0){
-
-		printf("Error, el dato introducido no es un número \n");
-	}
-
-	printf("Introduzca el título del libro: ");
-	scanf(" %[^\n]", catalogo2[i].Titulo);
-
-	printf("Introduce el nombre del Autor: ");
-	scanf(" %[^\n]", catalogo2[i].Autor);
-
-	printf("Introduzca el precio del libro: ");
-	scanf("%f", &catalogo2[i].Precio);
-
-	int añadir_Genero;
-
-	printf("Introduzca el género del libro(0 = FICTION 1 = NO_FICCION, 2 = POESIA, 3 = TEATRO, 4 = ENSAYO): ");
-	scanf("%d", &añadir_Genero);
-
-	catalogo2[i].Genero = añadir_Genero; //Creo una nueva variable para igualarla al catalago2[i].Genero, porque sino no te pilla el genero, que es un int, no una cadena de caracteres.
-
-	printf("Introduzca el stock del libro: ");
-	scanf("%d", &catalogo2[i].Stock);
-	}
-
-	for (int i = 0; i < Cantidad_libros; i++){ //Bucle que recorre todos los libros del catalogo2 incluyendo los libros que el usuario añadio, para imprimir todos los libros juntos.
-
-		printf("ID %d título %s autor o autores %s precio %.2f género %d stock %d \n", catalogo2[i].ID_LIBRO, catalogo2[i].Titulo, catalogo2[i].Autor, catalogo2[i].Precio, catalogo2[i].Genero, catalogo2[i].Stock);
-	}
-
-	 return &catalogo2[0];
-}
+LIBRO * Añadir_Libro(LIBRO * catalogo, int cantidad_libros_añadir);
 
 // Función para buscar libros por autor
 // Busca coincidencias en el nombre del autor
-void imprimir_autor(LIBRO *Libros, char *buscar_autor) {
-    if (buscar_autor == NULL) {
-        printf("Error: el autor a buscar es NULL\n");
-        return;
-    }
+void imprimir_autor(LIBRO *Libros, char *buscar_autor);
 
-    int encontrado = 0;
-
-    for (int i = 0; i < SIZE_CATALOG; i++) { // Recorre todos los libros en el catálogo
-        if (Libros[i].Autor != NULL) { // Verifica que el autor del libro no sea NULL
-            // Busca la cadena directamente dentro del campo Autor
-            if (strstr(Libros[i].Autor, buscar_autor) != NULL) {
-                printBOOK(&Libros[i]); // Muestra el libro
-                encontrado = 1;
-            }
-        }
-    }
-
-    if (!encontrado) {
-        printf("No existe el autor indicado\n");
-    }
-}
-
-
-void inicializar_libro (LIBRO * libro,int id, char * titulo, char * autor, int precio, int genero, int stock){ //Creamos una función que guarde los datos de los nuevos libros.
-
-	libro->ID_LIBRO = id;
-	strcpy(libro->Titulo , titulo);
-	strcpy(libro->Autor , autor);
-	libro->Precio = precio;
-	libro->Genero = genero;
-	libro->Stock = stock;
-
-}
-
-
+void inicializar_libro (LIBRO * libro,int id, char * titulo, char * autor, int precio, int genero, int stock);
 
 //argc: número de argumentos recibidos 
 //argv: array de cadenas de texto
@@ -322,4 +185,176 @@ int main(int argc, char ** argv){ //argv empieza en el argumento cero que equiva
 	free(catalogo);
 
 	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void printBOOK(const LIBRO * Libro){ // Para no tener que estar todo el rato escribiendo un printf con los datos de libro, se crea una variable que ya tenga este printf hecho, y asi solo lo llamamos donde lo necesitemos. 
+	
+	printf("ID %d título %s autor o autores %s precio %.2f género %d stock %d \n", Libro -> ID_LIBRO, Libro -> Titulo, Libro -> Autor, Libro -> Precio, Libro -> Genero, Libro -> Stock); //Este printf muestra por pantalla el contenido de BOOK, es decir, muestra el contenido que esta en la dirección de memoría de BOOK, si usaramos el punto en vez de la flecha, prodiamos modificar el valor que esta en la dirección de memoria de BOOK 
+}
+
+void Mostrar_Libros(const LIBRO * Libros){ //Es un puntero de BOOK a Books, poque queremos mostrar o modificar los datos que Books contiene.
+
+	for (int i = 0; i < SIZE_CATALOG; i++){ //Este bucle for recorre el Array de libros hasta que el array sea menor que size_catalogy, size_catalogy esta definido que sea 40, y muestra por pantalla el contenido de Books.
+	printBOOK(&Libros[i]); //Este printBOOK, es la variable creada anteriormente, el cual nos ahorra tener que estar escribiendo printf todo el rato, el &Books[i] nos indica que imprima todo lo que haya dentro de la dirección de memoria de Books el & accede a la dirección de memoría de Books.
+	}
+
+}
+
+void Mostrar_ID(const LIBRO * Libros, int ID){
+
+	for (int i = 0; i < SIZE_CATALOG; i++){ //Este bucle for recorre el Array de libros hasta que el array sea menor que size_catalogy, size_catalogy esta definido que sea 40, y muestra por pantalla el contenido de Books.
+		
+		if(Libros[i].ID_LIBRO == ID){ //En este fragmento de código se compara el valor de ID_BOOK, que representa el identificador único del libro, con el identificador proporcionado por el usuario. Si ambos valores coinciden, el programa procederá a imprimir en pantalla la información correspondiente al libro.
+
+			printBOOK(&Libros[i]); //Imprime todos los datos de Books, siempre que se cumpla lo indicado en el bucle.
+			printf("\n");
+			break;
+		}
+		else if(ID < 1 || ID > 40){ //Aquí verificamos si el identificador proporcionado por el usuario es menor que 1 o mayor que 40, valores que representan los límites válidos dentro de la variable books. En caso de que el ID dado por el usuario esté fuera de este rango, se genera un mensaje de error indicando que dicho identificador no existe.
+
+			printf("El ID %d no existe \n", ID);
+			printf("\n");
+			break;
+		}
+	}
+}
+
+void Aumentar_o_Disminuir_stock(LIBRO * Libros, int numero_ID, int cantidad){
+			
+
+		for (int i = 0; i < SIZE_CATALOG; i++){ //Este bucle for recorre el Array de libros hasta que el array sea menor que size_catalogy, size_catalogy esta definido que sea 40, y muestra por pantalla el contenido de Books.
+
+			if(numero_ID == Libros[i].ID_LIBRO){ //En este bucle for, comprobamos que el número_ID que indica el usuario exista dentro de Books, si existe, se procedera a realizar lo que haya dentro de este.
+
+				printf("El libro con el ID %d tiene un stock de %d \n", numero_ID, Libros[i].Stock); //En este printf mostramos por pantalla el stock que contiene el ID del libro.
+				
+				Libros[i].Stock += cantidad; //En esta parte modificamos el valor dentro de la dirección de memoría de Books (Con el punto), que en este caso se corresponde a Available_quantity para sumar este con el número indicado por el usuario, se usa el punto para modificar el valor y no la -> porque es la dirección de memoria.
+
+				printf("El libro con el ID %d ahora tiene un stock de %d\n", numero_ID, Libros[i].Stock); //Mostramos el stock despues de realizar el aumento o disminución del stock indicado por el usuario.
+				
+				break;
+			}
+		}
+}
+
+void Mostrar_Libro_Genero(const LIBRO * Libros, int Num_Category){ //Esta variable se podría hacer con un swicht, pero decidi hacerlo con un bucle for, porque es más rapido de hacer.
+
+		printf("Los libros con la categoria seleccionada son: \n");
+
+		for (int i = 0; i < SIZE_CATALOG; i++){ //Este bucle for recorre el Array de libros hasta que el array sea menor que size_catalogy, size_catalogy esta definido que sea 40, y muestra por pantalla el contenido de Books.
+
+			if(Num_Category == Libros[i].Genero){ //Comprobamos que el Num_Category coincida con algún dato en Books[i].Genres, si coinciden, imprimira por pantalla los libros que pertenezcan a la categoría indicada por el usuario.
+			
+				printBOOK(&Libros[i]); //Imprime todos los datos de Books, siempre que se cumpla lo indicado en el bucle.
+			
+			}else if(Num_Category < 0 | Num_Category > 4){ //Sí el número de la categoría es menor que 0 o mayor que 4, mostrara por pantalla el printf con el error.
+
+				printf("Error la categoria %d no existe \n", Num_Category);
+				printf(" \n");
+				break;
+			}
+	}
+}
+
+LIBRO * Añadir_Libro(LIBRO * catalogo, int cantidad_libros_añadir){ //función para añadir libros
+
+	int Cantidad_libros = SIZE_CATALOG + cantidad_libros_añadir; //Se crea una variable para saber cuantos libros desea añadir el usuario, para ello aumentamos el tamaño del catalogo con la cantidad de libros que el usuario quiera añadir
+
+	LIBRO * catalogo2 = (LIBRO *) realloc(catalogo,Cantidad_libros * sizeof(LIBRO)); //Creamos una dirección de memoria dinámica para guardar los libros nuevos que el usuario añada.
+
+	if (catalogo2 == NULL){ //Cuando catalogo2 es un numero nulo, salta un error.
+		printf("ERROR no se puedo asignar memoria \n");
+		exit(EXIT_FAILURE) ;
+	}
+
+	catalogo = catalogo2; //Indicamos que catalogo2 sigue la estructura de catalogo, esto nos evita poner las variables que ya exiten en catalogo, es decir, nos ahorramos escribir int ID_libro, char Titulo, etc...
+
+	for (int i = 40; i < Cantidad_libros; i++){ //Creamos el bucle que recorre los libros del catalogo.
+
+	printf("Introduzca el ID (Mayor a 40): ");
+	int valor_entorno = scanf("%d", &catalogo2[i].ID_LIBRO);
+
+	if (valor_entorno == 0){
+
+		printf("Error, el dato introducido no es un número \n");
+	}
+
+	printf("Introduzca el título del libro: ");
+	scanf(" %[^\n]", catalogo2[i].Titulo);
+
+	printf("Introduce el nombre del Autor: ");
+	scanf(" %[^\n]", catalogo2[i].Autor);
+
+	printf("Introduzca el precio del libro: ");
+	scanf("%f", &catalogo2[i].Precio);
+
+	int añadir_Genero;
+
+	printf("Introduzca el género del libro(0 = FICTION 1 = NO_FICCION, 2 = POESIA, 3 = TEATRO, 4 = ENSAYO): ");
+	scanf("%d", &añadir_Genero);
+
+	catalogo2[i].Genero = añadir_Genero; //Creo una nueva variable para igualarla al catalago2[i].Genero, porque sino no te pilla el genero, que es un int, no una cadena de caracteres.
+
+	printf("Introduzca el stock del libro: ");
+	scanf("%d", &catalogo2[i].Stock);
+	}
+
+	for (int i = 0; i < Cantidad_libros; i++){ //Bucle que recorre todos los libros del catalogo2 incluyendo los libros que el usuario añadio, para imprimir todos los libros juntos.
+
+		printf("ID %d título %s autor o autores %s precio %.2f género %d stock %d \n", catalogo2[i].ID_LIBRO, catalogo2[i].Titulo, catalogo2[i].Autor, catalogo2[i].Precio, catalogo2[i].Genero, catalogo2[i].Stock);
+	}
+
+	 return &catalogo2[0];
+}
+
+void imprimir_autor(LIBRO *Libros, char *buscar_autor){
+    if (buscar_autor == NULL) {
+        printf("Error: el autor a buscar es NULL\n");
+        return;
+    }
+
+    int encontrado = 0;
+
+    for (int i = 0; i < SIZE_CATALOG; i++) { // Recorre todos los libros en el catálogo
+        if (Libros[i].Autor != NULL) { // Verifica que el autor del libro no sea NULL
+            // Busca la cadena directamente dentro del campo Autor
+            if (strstr(Libros[i].Autor, buscar_autor) != NULL) {
+                printBOOK(&Libros[i]); // Muestra el libro
+                encontrado = 1;
+            }
+        }
+    }
+
+    if (!encontrado) {
+        printf("No existe el autor indicado\n");
+    }
+}
+
+void inicializar_libro (LIBRO * libro,int id, char * titulo, char * autor, int precio, int genero, int stock){ //Creamos una función que guarde los datos de los nuevos libros.
+
+	libro->ID_LIBRO = id;
+	strcpy(libro->Titulo , titulo);
+	strcpy(libro->Autor , autor);
+	libro->Precio = precio;
+	libro->Genero = genero;
+	libro->Stock = stock;
+
 }
