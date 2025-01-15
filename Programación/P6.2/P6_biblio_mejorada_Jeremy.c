@@ -49,7 +49,7 @@ void Mostrar_Libros(const LIBRO * Libros){ //Es un puntero de BOOK a Books, poqu
 }
 
 //Función que muestra el libro que desea ver el usuario
-void Mostrar_ID(  LIBRO * Libros, int ID){
+void Mostrar_ID(const LIBRO * Libros, int ID){
 
 	for (int i = 0; i < SIZE_CATALOG; i++){ //Este bucle for recorre el Array de libros hasta que el array sea menor que size_catalogy, size_catalogy esta definido que sea 40, y muestra por pantalla el contenido de Books.
 		
