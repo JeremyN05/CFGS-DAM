@@ -132,6 +132,7 @@ int main(int argc, char ** argv){ //argv empieza en el argumento cero que equiva
 		catalogo = Añadir_Libro(catalogo, Cantidad_libros);
 
 		char * buscar_autor;
+		buscar_autor = "Harper Lee";
 		imprimir_autor(catalogo, buscar_autor);
 
     } else if(argc == 2){ //Si la línea de comandos recibe 2 argumentos ejecuta las siguiente funciones.
