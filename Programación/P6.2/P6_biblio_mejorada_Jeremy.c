@@ -124,7 +124,12 @@ LIBRO * Añadir_Libro(LIBRO * catalogo, int cantidad_libros_añadir){ //función
 	for (int i = 40; i < Cantidad_libros; i++){ //Creamos el bucle que recorre los libros del catalogo.
 
 	printf("Introduzca el ID (Mayor a 40): ");
-	scanf("%d", &catalogo2[i].ID_LIBRO);
+	int valor_entorno = scanf("%d", &catalogo2[i].ID_LIBRO);
+
+	if (valor_entorno == 0){
+
+		printf("Error, el dato introducido no es un número \n");
+	}
 
 	printf("Introduzca el título del libro: ");
 	scanf(" %[^\n]", catalogo2[i].Titulo);
@@ -261,7 +266,7 @@ int main(int argc, char ** argv){ //argv empieza en el argumento cero que equiva
 		Mostrar_Libro_Genero(catalogo, Num_Category);
 
 		int Cantidad_libros = 0;
-		Añadir_Libro(catalogo, Cantidad_libros);
+		catalogo = Añadir_Libro(catalogo, Cantidad_libros);
 
 		char * buscar_autor;
 		imprimir_autor(catalogo, buscar_autor);
