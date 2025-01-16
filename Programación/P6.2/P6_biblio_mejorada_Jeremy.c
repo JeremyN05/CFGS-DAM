@@ -290,32 +290,68 @@ LIBRO * Añadir_Libro(LIBRO * catalogo, int cantidad_libros_añadir){ //función
 
 	for (int i = 40; i < Cantidad_libros; i++){ //Creamos el bucle que recorre los libros del catalogo.
 
-	printf("Introduzca el ID (Mayor a 40): ");
-	int valor_entorno = scanf("%d", &catalogo2[i].ID_LIBRO);
+	int valor_retorno;
 
-	if (valor_entorno == 0){
+	do {
+    	
+    	printf("Introduzca el ID (Mayor a 40): ");
+    	
+    	valor_retorno = scanf("%d", &catalogo2[i].ID_LIBRO);
+    	
+    	while (getchar() != '\n'); // Limpia el buffer para evitar errores en la próxima entrada
+    		if (valor_retorno == 0) {
+        
+        printf("Error, el dato introducido no es un número. Por favor, inténtelo de nuevo.\n");
+    }
+} while (valor_retorno == 0);
 
-		printf("Error, el dato introducido no es un número \n");
+
+		printf("Introduzca el título del libro: ");
+		scanf(" %[^\n]", catalogo2[i].Titulo);
+
+		printf("Introduce el nombre del Autor: ");
+		scanf(" %[^\n]", catalogo2[i].Autor);
+
+	do{
+
+		printf("Introduzca el precio del libro: ");
+
+		valor_retorno = scanf("%f", &catalogo2[i].Precio);
+
+		while (getchar() != '\n'); 
+			if (valor_retorno == 0){
+
+		printf("Error, el dato introducido no es un número, inténtelo de nuevo. \n");
 	}
-
-	printf("Introduzca el título del libro: ");
-	scanf(" %[^\n]", catalogo2[i].Titulo);
-
-	printf("Introduce el nombre del Autor: ");
-	scanf(" %[^\n]", catalogo2[i].Autor);
-
-	printf("Introduzca el precio del libro: ");
-	scanf("%f", &catalogo2[i].Precio);
+}while (valor_retorno == 0);
 
 	int añadir_Genero;
 
-	printf("Introduzca el género del libro(0 = FICTION 1 = NO_FICCION, 2 = POESIA, 3 = TEATRO, 4 = ENSAYO): ");
-	scanf("%d", &añadir_Genero);
+	do{
+		
+		printf("Introduzca el género del libro(FICTION = 0, NO_FICCION = 1, POESIA = 2,TEATRO = 3, ENSAYO = 4): ");
+		scanf("%d", &añadir_Genero);
+		
+		catalogo2[i].Genero = añadir_Genero; //Creo una nueva variable para igualarla al catalago2[i].Genero, porque sino no te pilla el genero, que es un int, no una cadena de caracteres.
+		
+		if (añadir_Genero > 4){
 
-	catalogo2[i].Genero = añadir_Genero; //Creo una nueva variable para igualarla al catalago2[i].Genero, porque sino no te pilla el genero, que es un int, no una cadena de caracteres.
+		printf("Error la categoría %d no existe, por favor introduzca una que si exista. \n", añadir_Genero);
+}
+	}while (añadir_Genero > 4);
 
-	printf("Introduzca el stock del libro: ");
-	scanf("%d", &catalogo2[i].Stock);
+	do{
+		
+		printf("Introduzca el stock del libro: ");
+		valor_retorno = scanf("%d", &catalogo2[i].Stock);
+
+		while (getchar() != '\n'); 
+			if (valor_retorno == 0){
+
+		printf("Error, el dato introducido no es un número, inténtelo de nuevo. \n");
+	}
+}while (valor_retorno == 0);
+	
 	}
 
 	for (int i = 0; i < Cantidad_libros; i++){ //Bucle que recorre todos los libros del catalogo2 incluyendo los libros que el usuario añadio, para imprimir todos los libros juntos.
