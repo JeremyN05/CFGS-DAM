@@ -145,7 +145,7 @@ int main(int argc, char ** argv){ //argv empieza en el argumento cero que equiva
 
             printf("\n");
 
-        }
+        }else printf("Error usa, mostrar, categoria, añadir, buscar, stock para usar los diferentes programas.\n");
 
     } else if(argc == 3){ //Si la línea de comandos recibe 3 argumentos ejecuta las siguientes funciones.
 
@@ -251,6 +251,10 @@ void Aumentar_o_Disminuir_stock(LIBRO * Libros, int numero_ID, int cantidad){
 
 				printf("El libro con el ID %d ahora tiene un stock de %d\n", numero_ID, Libros[i].Stock); //Mostramos el stock despues de realizar el aumento o disminución del stock indicado por el usuario.
 				
+				break;
+			}else if(numero_ID < 0 | numero_ID > 40){
+				printf("Error ID no encontrado\n");
+
 				break;
 			}
 		}
