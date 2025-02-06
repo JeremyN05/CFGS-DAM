@@ -3,18 +3,27 @@
 
 int busqueda_binaria(int * array, int a_buscar, int inicio, int fin){
 
-	int mitad = (inicio + fin) % 2;
-	if (a_buscar == array[mitad]){
-		return 1;
-	
-	}else if(a_buscar < array[mitad]){
+	int mitad = (inicio + fin) / 2;
 
-		ret =busqueda_recursiva (array, a_buscar, inicio, mitad);
+	if (array[mitad] == a_buscar){
+		return mitad;
+	}
+
+	if (inicio > fin){
+		return -1;
+	}
+	
+
+	if(array[mitad] > a_buscar){
+
+		return busqueda_binaria(array, a_buscar, inicio, mitad-1);
 
 	}else {
-		ret = busqueda_recursiva(array, a_buscar, fin, mitad);
+
+		return busqueda_binaria(array, a_buscar, mitad+1, fin);
 	} 
 
+	printf("%d", busqueda_binaria);
 }
 
 int main(){
