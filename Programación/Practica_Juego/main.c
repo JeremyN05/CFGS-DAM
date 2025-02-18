@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "mapa.h"
 #include "dragones.h"
 #include "Personajes.h"
 #include "combate.h"
-#include <utilidades.h>
 
 
 int main() {
@@ -54,11 +53,9 @@ int main() {
     mostrarDragones(dragones, cantidad);
     MostrarPersonajes(personajes, &cantidad);
 
-    int PersonajeElegido = ElegirPersonaje(personajes);
+    int PersonajeElegido = 0;
 
-    combate(dragones, personajes, cantPersonajes, cantDragones, PersonajeElegido);
-
-
+    mapa(dragones, cantDragones, personajes, cantPersonajes, PersonajeElegido);
 
     return 0;
 }
