@@ -1,11 +1,12 @@
 typedef struct{
 
-	int cura;
-	int dañoX2;
 	int precio;
+	int utilidad;
+	int cantidad;
+	int cura;
+	int danoX2;
 
 
-}utilidades;
+}objetos;
 
-void curación(utilidades utilidad[], Personaje personajes[]);
-void dañoPor2(utilidades utilidad[], Personaje personajes[]):
+void inicializarobjetos(objetos objeto[], Personaje personajes[], int PersonajeElegido);

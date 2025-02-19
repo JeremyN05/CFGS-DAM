@@ -4,4 +4,4 @@ typedef struct{
 	int objetos;
 	
 
-}objetos;
+}ventas;
