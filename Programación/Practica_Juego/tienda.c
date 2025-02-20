@@ -5,5 +5,9 @@
 
 void inicializartienda(ventas venta[], objetos objeto[], Personaje personajes[]){
 
-	printf("Hola, bienvenido a la tienda Doña Marta")
+	printf("¡Hola!, bienvenido a la tienda Doña Marta \n");
+
+	printf("¿Qué desea comprar? 0 (Curas) 1 (Daño x 2) \n");
+
+
 }
