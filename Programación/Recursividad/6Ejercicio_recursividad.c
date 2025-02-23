@@ -5,7 +5,7 @@ int balance(char * cadena, int contadorabierto, int contadorcerrado){
 
 	if(*cadena == '\0'){
 
-		return balance;
+		return contadorabierto - contadorcerrado;
 	}
 
 	if(*cadena == '('){
@@ -21,20 +21,6 @@ int balance(char * cadena, int contadorabierto, int contadorcerrado){
 	
 	}
 
-	if(contadorabierto > contadorcerrado){
-		
-		printf("Hay más paréntesis abiertos que cerrados. \n");
-				
-	}else if(contadorcerrado > contadorabierto){
-
-		printf("Hay más paréntesis cerrados que abiertos. \n");
-	
-	}else if(contadorabierto == contadorcerrado){
-		
-		printf("Está balanceado");
-
-	}
-
 	return balance(cadena+1, contadorabierto, contadorcerrado);
 
 }
@@ -48,6 +34,14 @@ int main(){
 	printf("Introuzca una cadena de paréntesis: ");
 	scanf("%s", cadena);
 
-	int p = balance(cadena, contadorabierto, contadorcerrado);
-	printf("Hay: %d \n", p);
+
+	int resultado = balance(cadena, contadorabierto, contadorcerrado);
+
+    if (resultado == 0) {
+        printf("La cadena está balanceada.\n");
+    } else if (resultado > 0) {
+        printf("Hay más paréntesis abiertos que cerrados.\n");
+    } else {
+        printf("Hay más paréntesis cerrados que abiertos.\n");
+    }
 }
