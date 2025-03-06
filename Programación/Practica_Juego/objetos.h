@@ -1,10 +1,11 @@
 #ifndef OBJETOS_H
 #define OBJETOS_H
+#include "Personajes.h"
 
 typedef struct{
 
 	int precio;
-	int utilidad;
+	char utilidad[20];
 	int cantidad;
 	int cura;
 	int danoX2;

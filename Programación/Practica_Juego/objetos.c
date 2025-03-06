@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "objetos.h"
+#include "tienda.h"
+#include "Personajes.h"
 
 void inicializarobjetos(objetos objeto[], Personaje personajes[], int PersonajeElegido){
 

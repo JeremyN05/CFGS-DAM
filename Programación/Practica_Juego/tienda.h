@@ -1,7 +1,9 @@
-typedef struct{
+#ifndef TIENDA_H
+#define TIENDA_H
 
-	int precio;
-	int objetos;
-	
+#include "Personajes.h"
+#include "objetos.h"
 
-}ventas;
+void inicializartienda(objetos objeto[], Personaje personajes[], int PersonajeElegido);
+
+#endif

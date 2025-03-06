@@ -5,6 +5,8 @@
 #include "dragones.h"
 #include "Personajes.h"
 #include "combate.h"
+#include "objetos.h"
+#include "tienda.h"
 
 
 int main() {
@@ -54,7 +56,7 @@ int main() {
 
     int PersonajeElegido = 0;
 
-    mapa(dragones, cantDragones, personajes, cantPersonajes, PersonajeElegido);
+    mapa(dragones, &cantDragones, personajes, &cantPersonajes, PersonajeElegido);
 
     return 0;
 }
