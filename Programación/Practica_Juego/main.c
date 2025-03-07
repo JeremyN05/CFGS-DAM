@@ -58,6 +58,14 @@ int main() {
 
     mapa(dragones, &cantDragones, personajes, &cantPersonajes, PersonajeElegido);
 
+    int cantidad_curas = 0;
+
+    objetos objeto[2];
+
+    inicializarobjetos(objeto, personajes, PersonajeElegido);
+
+    inicializarCuras(objeto, personajes, PersonajeElegido, cantidad_curas);
+
     return 0;
 }
 

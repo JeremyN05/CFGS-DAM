@@ -15,5 +15,6 @@ typedef struct{
 }objetos;
 
 void inicializarobjetos(objetos objeto[], Personaje personajes[], int PersonajeElegido);
+void inicializarCuras(objetos objeto[], Personaje personajes[], int PersonajeElegido, int cantidad_curas);
 
 #endif

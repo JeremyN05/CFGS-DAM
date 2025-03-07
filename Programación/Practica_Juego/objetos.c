@@ -7,6 +7,9 @@
 
 void inicializarobjetos(objetos objeto[], Personaje personajes[], int PersonajeElegido){
 
+	int precioTotal;
+	int cantidad_curas = 0;
+
 	strcpy(objeto[0].utilidad, "cura");
 	objeto[0].precio = 20;
 	objeto[0].cantidad = 30;
@@ -19,14 +22,31 @@ void inicializarobjetos(objetos objeto[], Personaje personajes[], int PersonajeE
 	objeto[1].danoX2 = personajes[PersonajeElegido].ataque1 * 2;
 	objeto[1].stock = 1000;
 
-	if(objeto[0].cantidad > 0){
+}
 
-		personajes[PersonajeElegido].vida += objeto[0].cura;
-	}
+void inicializarCuras(objetos objeto[], Personaje personajes[], int PersonajeElegido, int cantidad_curas){
 
-	objeto[0].cantidad--;
+	int precioTotal;
 
-	printf("%s ha obtenido %d de hp \n", personajes[PersonajeElegido].nombre, objeto[0].cura);
-	printf("La vida de %s pasa a ser %d hp \n", personajes[PersonajeElegido].nombre, personajes[PersonajeElegido].vida);
+		if(cantidad_curas > 0){
 
+			precioTotal = objeto[0].precio * cantidad_curas;
+
+			printf("Tiene que pagar: %d monedas de oro", precioTotal);
+
+				if(precioTotal > personajes[PersonajeElegido].oro){
+
+				printf("No cuenta con el dinero suficiente.\n");
+
+				}else 
+
+				personajes[PersonajeElegido].oro -= precioTotal;
+
+				personajes[PersonajeElegido].inventario +=cantidad_curas;
+
+				objeto[0].cantidad-=cantidad_curas;
+
+				printf("Compra realizada con éxito, tienes %d curas en el inventario y %d monedas restantes.\n", cantidad_curas, personajes[PersonajeElegido].oro);
+
+		} 
 }

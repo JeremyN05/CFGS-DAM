@@ -64,3 +64,6 @@ printf("\n\n");
     return 0;
 }
 
+personajes[PersonajeElegido].vida += objeto[0].cura;
+printf("%s ha obtenido %d de hp \n", personajes[PersonajeElegido].nombre, objeto[0].cura);
+printf("La vida de %s pasa a ser %d hp \n", personajes[PersonajeElegido].nombre, personajes[PersonajeElegido].vida);
