@@ -14,8 +14,6 @@ typedef struct{
 	int vida;
 	int vidaMax;
 	int estado;
-	int inventario;
-	int oro;
 
 }Personaje;
 
@@ -25,6 +23,7 @@ void MostrarPersonajes(Personaje personajes[], int * cantidad);
 char getch();
 int ElegirPersonaje(Personaje personajes[]);
 void simboloPersonaje(Personaje personajes[], int PersonajeElegido);
+void personajeVSdragon(int PersonajeElegido);
 
 #endif
 

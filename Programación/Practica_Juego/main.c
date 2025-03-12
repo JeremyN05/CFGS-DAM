@@ -5,8 +5,6 @@
 #include "dragones.h"
 #include "Personajes.h"
 #include "combate.h"
-#include "objetos.h"
-#include "tienda.h"
 
 
 int main() {
@@ -57,14 +55,6 @@ int main() {
     int PersonajeElegido = 0;
 
     mapa(dragones, &cantDragones, personajes, &cantPersonajes, PersonajeElegido);
-
-    int cantidad_curas = 0;
-
-    objetos objeto[2];
-
-    inicializarobjetos(objeto, personajes, PersonajeElegido);
-
-    inicializarCuras(objeto, personajes, PersonajeElegido, cantidad_curas);
 
     return 0;
 }

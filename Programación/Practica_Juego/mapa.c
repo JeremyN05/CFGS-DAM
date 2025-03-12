@@ -7,14 +7,20 @@
 #include "Personajes.h"
 #include "dragones.h"
 #include "combate.h"
-#include "objetos.h"
 #include "tienda.h"
+#include "mina.h"
 
-objetos lista_objetos[2]; 
+
+
 
 void mapa(Dragon dragones[], int *cantDragones, Personaje personajes[], int *cantPersonajes, int PersonajeElegido){
 
 	system("clear");
+
+	int oro = 0;
+
+	int cant_curas = 0;
+	int cant_X2 = 0;
 
 	int nivel = 0;
 	
@@ -30,7 +36,9 @@ void mapa(Dragon dragones[], int *cantDragones, Personaje personajes[], int *can
 
 	while (1){
 
-		printf("          Tienda (próximamente)\n");
+		printf("\n       🅆 🄰 🅂 🄳 MOVERTE\n\n");
+
+		printf("          Tienda\n");
 
 		for (int i = 0; i < largo; i++){
 				for (int j = 0; j < ancho; j++){
@@ -41,8 +49,11 @@ void mapa(Dragon dragones[], int *cantDragones, Personaje personajes[], int *can
 								else if (j > 0 && j < (ancho - 1)){
 									printf("  ");
 								}
-								else if(i == selectorY && j == (ancho-1)){
+								else if(i == 4 && j == (ancho-1)){
 									printf("] Personajes");
+								}
+								else if(i == 8 && j == (ancho-1)){
+									printf("] Taberna");
 								}
 								else {
 									printf("# "); //imprime las lineas de los lados
@@ -78,29 +89,34 @@ void mapa(Dragon dragones[], int *cantDragones, Personaje personajes[], int *can
 		
 		printf("\nPersonaje: ");
 		printf(CYAN "%s " RESET, personajes[PersonajeElegido].nombre);
-		printf("Vida: ");
+		printf("  Oro: ");
+		printf(YELLOW "%d\n" RESET, oro);
+		printf("\nVida: ");
 		printf(GREEN "%dhp " RESET, personajes[PersonajeElegido].vida);
-		printf("Ataque 1: ");
+		printf("  Ataque 1: ");
 		printf(RED "%d " RESET, personajes[PersonajeElegido].ataque1);
-		printf("Ataque 2: ");
+		printf("  Ataque 2: ");
 		printf(RED "0-%d " RESET, personajes[PersonajeElegido].ataque2);
+		printf("\n\nCuras: ");
+		printf(GREEN "%d" RESET, cant_curas);
+		printf("  Daños X2: ");
+		printf(RED "%d\n" RESET, cant_X2);
+
 
 		posicion = getch(); // Captura la tecla sin Enter
 
 		system("clear");
 
 		if (posicion == 'w' || posicion == 'W'){
-			vertical-= 1;
+				vertical-= 1;
 
 			if(vertical < 1 ){ //si se pasa del borde le suma otro para que se contrarreste y se quede en el mismo sitio
+				if (horizontal == selectorY){
+					tienda(&oro, &cant_curas, &cant_X2);
+				} 
+
 				vertical+=1;
 			}
-
-			if (vertical == 1){
-				if (horizontal == selectorY){
-            		inicializartienda(lista_objetos, personajes, PersonajeElegido);
-            	}
-            }
 
 		}else if(posicion == 'a' || posicion == 'A'){
 			horizontal-= 1;
@@ -115,9 +131,10 @@ void mapa(Dragon dragones[], int *cantDragones, Personaje personajes[], int *can
 			if(vertical > (largo - 2)){
 				if (horizontal == selectorY){ //si la posicionY del * es = posicionY de ] 
 
-					combate(dragones, personajes, cantPersonajes, cantDragones, PersonajeElegido, &nivel);
+					combate(dragones, personajes, cantPersonajes, cantDragones, PersonajeElegido, &nivel, &oro, &cant_curas, &cant_X2);
             		for (int i = 0; i < 3; i++) {
-    					personajes[i].vida = personajes[i].vidaMax;  // Recuperar la vida cuando acabe el combate
+    					personajes[i].vida = personajes[i].vidaMax;
+    					dragones[i].vida = dragones[i].vidaMax;  // Recuperar la vida cuando acabe el combate
     					personajes[i].estado = 1;
     					*cantPersonajes = 3;
 					}
@@ -131,8 +148,11 @@ void mapa(Dragon dragones[], int *cantDragones, Personaje personajes[], int *can
 			horizontal+=1;
 
 			if(horizontal > (ancho - 2)){
-				if (vertical == selectorY){ //si la posicionY del * es = posicionY de ] 
+				if (vertical == 4){ //si la posicionY del * es = posicionY de ] 
             		PersonajeElegido = ElegirPersonaje(personajes);
+            	}
+            	else if (vertical == 8){ //si la posicionY del * es = posicionY de ] 
+            		mina(&oro);
             	}
 				horizontal-=1;
 			}
